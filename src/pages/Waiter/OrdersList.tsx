@@ -1,4 +1,4 @@
-import logo from "../../components/hamburguesa.png"
+import logo from "../../assets/hamburguesa.png"
 export default function OrderList() {
     return (
       <main>

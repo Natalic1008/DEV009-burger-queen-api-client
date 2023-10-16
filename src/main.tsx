@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css';
-import{RouterProvider, createBrowserRouter} from 'react-router-dom';
-import Login from './routes/Login/login.tsx'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Login from './pages/Login/login.tsx'
+import OrderList from './pages/Waiter/OrdersList.tsx';
 import App from './App.tsx';
 
 const router = createBrowserRouter([
@@ -13,12 +14,19 @@ const router = createBrowserRouter([
   {
     path: "/waiter",
     element: <App/>,
+    children: [
+      
+      {
+        path: "orders",
+        element: <OrderList />,
+      },
+    ]
   }
 
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
   </React.StrictMode>,
 )
