@@ -1,12 +1,11 @@
 
 import { Outlet } from 'react-router-dom'
 import './App.css'
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function App() {
   return (
     <>
-      <header />
       <main>
         <Outlet />
       </main>
