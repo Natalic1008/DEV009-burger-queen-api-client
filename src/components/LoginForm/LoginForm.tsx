@@ -2,6 +2,7 @@ import { useState } from "react";
 import { auth } from "../../Services/Request"
 import { saveData } from "../../Services/LocalData";
 import { useNavigate } from "react-router-dom";
+import style from "./LoginForm.module.css";
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
@@ -15,7 +16,7 @@ export default function LoginForm() {
     auth(email, password)
       .then((response) => {
         if (!response.ok) {
-          setError("Invalid credentials.")
+          setError("Credenciales invalidas")
           throw new Error('Error en la solicitud de inicio de sesión');
         }
         return response.json();
@@ -34,13 +35,13 @@ export default function LoginForm() {
         }
       })
       .catch(() => {
-        setError("Invalid credentials.")
+        setError("Credenciales invalidas")
       });
 
   }
   return (<>
 
-    <form name="formulario" >
+    <form name="formulario" className={style.section}>
       <input
         type='email'
         placeholder='Correo'
@@ -55,8 +56,8 @@ export default function LoginForm() {
       />
       <button type="submit" onClick={userAuth}>INGRESAR</button>
       {error &&
-        <div className="mensaje" >
-          <span className="span">{error}</span>
+        <div className={style.error_message} >
+          <span className={style.error}>{error}</span>
         </div>}
     </form>
 

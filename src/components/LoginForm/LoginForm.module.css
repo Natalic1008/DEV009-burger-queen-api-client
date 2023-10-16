@@ -1,0 +1,35 @@
+.section{
+    width: 70%;
+    margin: 20px;
+    background-color: #F39625;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+input{
+    margin: 10px;
+    height: 20px;
+    border: 2px solid #FFFF;
+    border-radius: 5px;
+    text-indent: 10px;
+
+}
+button{
+    margin:auto;
+    height: 40px;
+    background-color: #4E990D;
+    border: 5px solid #4E990D;
+    color: #FFFF;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+    }
+.error{
+    color: red;
+    font-size: 15px;
+    margin-left: 5px;
+} 
+.error_message{
+    display: flex;
+    justify-content: center;
+}   
