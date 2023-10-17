@@ -1,4 +1,3 @@
-import logo from "../../assets/hamburguesa.png"
 import AppBar from "../../components/AppBar/AppBar"
 
 export default function OrderList() {
