@@ -3,6 +3,9 @@ import { auth } from "../../Services/Request"
 import { saveData } from "../../Services/LocalData";
 import { useNavigate } from "react-router-dom";
 import style from "./LoginForm.module.css";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
@@ -40,27 +43,31 @@ export default function LoginForm() {
 
   }
   return (<>
-
-    <form name="formulario" className={style.section}>
-      <input
-        type='email'
-        placeholder='Correo'
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type='password'
-        placeholder='Contraseña'
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit" onClick={userAuth}>INGRESAR</button>
+    <Form className={style.section}>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Email</Form.Label>
+        <Form.Control
+          type="email"
+          placeholder="Ingresar Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)} />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control
+          type="password"
+          placeholder="Ingresa Coontraseña"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)} />
+      </Form.Group>
+      <Button className="btn btn-success" type="submit" onClick={userAuth}>
+        INGRESAR
+      </Button>
       {error &&
         <div className={style.error_message} >
           <span className={style.error}>{error}</span>
         </div>}
-    </form>
-
+    </Form>
   </>)
 }
 
