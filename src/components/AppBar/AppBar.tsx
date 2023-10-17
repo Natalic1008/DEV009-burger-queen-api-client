@@ -2,6 +2,7 @@ import logo from "../../assets/hamburguesa.png"
 import { Navbar, Container } from 'react-bootstrap'
 
 export default function AppBar() {
+  const userRole = localStorage.getItem("role");
   return (
     <>
     <Navbar className="bg-body-tertiary">
@@ -18,7 +19,7 @@ export default function AppBar() {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
-            Signed in as: <a href="#login">Mark Otto</a>
+            Signed in as: <a href="#login">{userRole}</a>
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>
