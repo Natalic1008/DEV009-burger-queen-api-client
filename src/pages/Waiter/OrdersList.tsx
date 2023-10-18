@@ -1,11 +1,15 @@
-import AppBar from "../../components/AppBar/AppBar"
+import AppBar from "../../components/AppBar/AppBar";
+import Menu from "../../components/Menu/Menu";
+
 
 export default function OrderList() {
+  
     return (
       <main>
         <AppBar></AppBar>
         <div className="Principal">
-          <h2> MESERO 1</h2>
+        <Menu></Menu>
+         
         </div>
       </main>
     )
