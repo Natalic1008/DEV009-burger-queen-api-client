@@ -1,10 +1,17 @@
 import { screen, render, fireEvent, waitFor } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
 import { auth } from "../../Services/Request";
 import LoginForm from "./LoginForm";
 
 jest.mock("../../Services/Request", () => ({
-  auth: jest.fn(),
+  auth: jest.fn().mockResolvedValue(
+    {
+      ok: true,
+      json: jest.fn().mockResolvedValue({
+        accessToken: "token1234",
+        user: { role: "waiter", name: "WaiterName" },
+      }),
+    }
+  ),
 }));
 const navigateMock = jest.fn();
 
@@ -14,29 +21,20 @@ jest.mock("react-router-dom", () => ({
 }));
 
 describe("LoginForm", () => {
-  
+  let emailElement: Node | Window, passwordElement: Node | Window, buttonElement: Node | Window;
+
   beforeEach(() => {
-    let emailElement, passwordElement, buttonElement;
     render(
-      <MemoryRouter>
+      
         <LoginForm />
-      </MemoryRouter>
+      
     );
     emailElement = screen.getByTestId("email_login");
     passwordElement = screen.getByTestId("password_login");
     buttonElement = screen.getByTestId("submit_login");
   });
-  it("Deberia autenticar al usuario como mesero", async () => {
-    const mockResponse = {
-      ok: true,
-      json: jest.fn().mockResolvedValue({
-        accessToken: "token123",
-        user: { role: "Waiter", name: "WaiterName" },
-      }),
-    };
-
-    auth.mockResolvedValueOnce(mockResponse);
-
+  it("Deberia autenticar las credenciales del usuario como mesero y redirigir a la vista de mesero", async () => {
+    
     fireEvent.change(emailElement, { target: { value: "waiter@example.com" } });
     fireEvent.change(passwordElement, { target: { value: "password123" } });
 
@@ -44,7 +42,8 @@ describe("LoginForm", () => {
 
     await waitFor(() => {
       expect(auth).toHaveBeenCalledWith("waiter@example.com", "password123");
-      expect(navigateMock).toHaveBeenCalledWith("/waiter/order");
+      expect(navigateMock).toHaveBeenCalledWith("/Waiter/orders");
     });
-  });}
+  });
+}
 )
