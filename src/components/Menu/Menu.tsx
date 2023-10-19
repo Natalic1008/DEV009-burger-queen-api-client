@@ -1,13 +1,21 @@
 import { useState } from 'react';
-import { Button, Table } from 'react-bootstrap';
+import { Button, Container, Table } from 'react-bootstrap';
+
+interface Product {
+  type: string;
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+}
 
 export default function Menu() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
 
   const viewProducts = () => {
     fetch('http://localhost:8080/products', {
       method: 'GET',
-      headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndhaXRlckBzeXN0ZXJzLnh5eiIsImlhdCI6MTY5NzYzOTAyOCwiZXhwIjoxNjk3NjQyNjI4LCJzdWIiOiIyIn0.pALQ35-9UamBVztIyIC7koeQNzFsGjhoa_E3ImqK_S0' }
+      headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndhaXRlckBzeXN0ZXJzLnh5eiIsImlhdCI6MTY5NzY3NjE4NiwiZXhwIjoxNjk3Njc5Nzg2LCJzdWIiOiIyIn0.q9ygh0UidblwMYxgoUJRNqBPLIE_lHbPaEJPNYUfAm0' }
     })
       .then(response => response.json())
       .then(data => setProducts(data))
@@ -15,7 +23,8 @@ export default function Menu() {
 
   return (
     <>
-      <Button variant='primary' onClick={viewProducts}>Desayuno</Button>
+    <Container>
+      <Button variant='primary' onClick={viewProducts}>Breakfast</Button>
       <Table>
         <thead>
           <tr>
@@ -29,11 +38,13 @@ export default function Menu() {
               <tr key={product.id}>
                 <td>{product.name}</td>
                 <td>{product.price}</td>
+                <img src={product.image} height={50}></img>
+                <Button variant='info'>Agregar al carrito</Button>
               </tr>
             )}
         </tbody>
       </Table>
-
+    </Container>
     </>
   );
 }
