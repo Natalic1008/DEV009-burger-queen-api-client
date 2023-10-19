@@ -5,16 +5,17 @@ import { useNavigate } from "react-router-dom";
 import style from "./LoginForm.module.css";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import _default from "react-bootstrap/Form";
 
 
-export default function LoginForm() {
+const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const navigateTo = useNavigate();
 
-  function userAuth(e: React.MouseEvent) {
+  const userAuth = (e: React.MouseEvent)=> {
     e.preventDefault();
     auth(email, password)
       .then((response) => {
@@ -63,7 +64,7 @@ export default function LoginForm() {
           onChange={(e) => setPassword(e.target.value)} />
       </Form.Group>
       <Button className="btn btn-success" type="submit" onClick={userAuth} data-testid="submit_login">
-      LOGIN
+      LOG IN
       </Button>
       {error &&
         <div className={style.error_message} >
@@ -73,3 +74,4 @@ export default function LoginForm() {
   </>)
 }
 
+export default LoginForm;
