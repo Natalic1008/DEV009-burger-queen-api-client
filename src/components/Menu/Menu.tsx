@@ -15,7 +15,7 @@ export default function Menu() {
   const viewProducts = () => {
     fetch('http://localhost:8080/products', {
       method: 'GET',
-      headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndhaXRlckBzeXN0ZXJzLnh5eiIsImlhdCI6MTY5NzY3NjE4NiwiZXhwIjoxNjk3Njc5Nzg2LCJzdWIiOiIyIn0.q9ygh0UidblwMYxgoUJRNqBPLIE_lHbPaEJPNYUfAm0' }
+      headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndhaXRlckBzeXN0ZXJzLnh5eiIsImlhdCI6MTY5NzczMjk4NywiZXhwIjoxNjk3NzM2NTg3LCJzdWIiOiIyIn0.WvGwfmE742hSNafI1sw29N-O_76tynV9bgJcBUnsL4k' }
     })
       .then(response => response.json())
       .then(data => setProducts(data))
