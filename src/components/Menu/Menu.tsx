@@ -34,7 +34,7 @@ export default function Menu() {
         </thead>
         <tbody>
           {
-            products.filter(item => item.type === 'Breakfast').map((product) =>
+            products.filter(item => item.type === 'Lunch').map((product) =>
               <tr key={product.id}>
                 <td>{product.name}</td>
                 <td>{product.price}</td>
