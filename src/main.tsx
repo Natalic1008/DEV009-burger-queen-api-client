@@ -1,10 +1,32 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import './index.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import OrderList from './pages/Waiter/OrdersList.tsx';
+import App from './App.tsx';
+import Login from './pages/Login/Login.tsx';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element:<Login/>,
+  },
+  {
+    path: "/waiter",
+    element: <App/>,
+    children: [
+      
+      {
+        path: "orders",
+        element: <OrderList />,
+      },
+    ]
+  }
+
+])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+      <RouterProvider router={router} />
   </React.StrictMode>,
 )
