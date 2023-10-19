@@ -14,7 +14,7 @@ export default function LoginForm() {
 
   const navigateTo = useNavigate();
 
-  function userAuth(e) {
+  function userAuth(e: React.MouseEvent) {
     e.preventDefault();
     auth(email, password)
       .then((response) => {

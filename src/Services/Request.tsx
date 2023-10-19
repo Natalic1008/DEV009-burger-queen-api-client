@@ -1,4 +1,4 @@
-export const auth = (email, password) => {
+export const auth = (email:string, password:string) => {
     return fetch('http://localhost:8080/login', {
         method: 'POST',
         headers: {
