@@ -34,12 +34,12 @@ export default function Menu() {
         </thead>
         <tbody>
           {
-            products.filter(item => item.type === 'Beverages').map((product) =>
+            products.filter(item => item.type === 'Breakfast').map((product) =>
               <tr key={product.id}>
                 <td>{product.name}</td>
                 <td>{product.price}</td>
                 <img src={product.image} height={50}></img>
-                <Button variant='info'>Agregar al carrito</Button>
+                <Button variant='info'>Agregar</Button>
               </tr>
             )}
         </tbody>
