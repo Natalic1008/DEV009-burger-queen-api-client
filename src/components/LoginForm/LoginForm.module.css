@@ -1,13 +1,12 @@
 .section{
     width: 70%;
-    margin: 20px;
     background-color: #F39625;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-content: center;
     justify-content: center;
-    margin-top: 300px;
+    margin-top: 100px;
 }
 
 .error{

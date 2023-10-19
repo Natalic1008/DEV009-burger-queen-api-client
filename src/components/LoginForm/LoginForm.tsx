@@ -19,7 +19,7 @@ export default function LoginForm() {
     auth(email, password)
       .then((response) => {
         if (!response.ok) {
-          setError("Credenciales invalidas")
+          setError("Invalid credentials")
           throw new Error('Error en la solicitud de inicio de sesión');
         }
         return response.json();
@@ -43,25 +43,27 @@ export default function LoginForm() {
 
   }
   return (<>
-    <Form className={style.section}>
+    <Form className={style.section} data-testid="form_login" >
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email</Form.Label>
         <Form.Control
           type="email"
-          placeholder="Ingresar Email"
+          placeholder="Email"
           value={email}
+          data-testid="email_login"
           onChange={(e) => setEmail(e.target.value)} />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
         <Form.Control
           type="password"
-          placeholder="Ingresa Coontraseña"
+          placeholder="Password"
           value={password}
+          data-testid="password_login"
           onChange={(e) => setPassword(e.target.value)} />
       </Form.Group>
-      <Button className="btn btn-success" type="submit" onClick={userAuth}>
-        INGRESAR
+      <Button className="btn btn-success" type="submit" onClick={userAuth} data-testid="submit_login">
+      LOGIN
       </Button>
       {error &&
         <div className={style.error_message} >
