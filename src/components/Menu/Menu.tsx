@@ -29,6 +29,7 @@ export default function Menu({ handleAddToSelectedItems }) {
         setAllProducts(data);
       })
       .catch((error) => {
+        console.error(error)
       });
     }, [token]);
     const viewProducts = (menu) => {
