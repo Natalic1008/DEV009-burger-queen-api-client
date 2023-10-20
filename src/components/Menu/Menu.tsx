@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Container, Table } from 'react-bootstrap';
+import { products } from '../../Services/Request';
+import { func } from "prop-types";
 
-interface Product {
+interface val {
   type: string;
   id: number;
   name: string;
@@ -9,43 +11,74 @@ interface Product {
   image: string;
 }
 
-export default function Menu() {
-  const [products, setProducts] = useState<Product[]>([]);
+export default function Menu({ handleAddToSelectedItems }) {
+  const token = localStorage.getItem("token");
+  const [allProducts, setAllProducts] = useState([]);
+  const [menuType, setMenuType] = useState("Breakfast");
+  
+  useEffect(() => {
+    products(token)
+    .then((response) => {
+      if (!response.ok) {
+        console.log(token)
+          throw new Error("No existen productos");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setAllProducts(data);
+      })
+      .catch((error) => {
+      });
+    }, [token]);
+    const viewProducts = (menu) => {
+      setMenuType(menu);
+    };
+    
 
-  const viewProducts = () => {
-    fetch('http://localhost:8080/products', {
-      method: 'GET',
-      headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndhaXRlckBzeXN0ZXJzLnh5eiIsImlhdCI6MTY5NzczMjk4NywiZXhwIjoxNjk3NzM2NTg3LCJzdWIiOiIyIn0.WvGwfmE742hSNafI1sw29N-O_76tynV9bgJcBUnsL4k' }
-    })
-      .then(response => response.json())
-      .then(data => setProducts(data))
-  }
-
-  return (
-    <>
-    <Container>
-      <Button variant='primary' onClick={viewProducts}>Breakfast</Button>
-      <Table>
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Precio</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            products.filter(item => item.type === 'Lunch').map((product) =>
-              <tr key={product.id}>
-                <td>{product.name}</td>
-                <td>{product.price}</td>
-                <img src={product.image} height={50}></img>
-                <Button variant='info'>Agregar</Button>
+    return (
+      <>
+      <Container>
+        <div>
+          <Button variant='primary' onClick={() => viewProducts("Breakfast")}>Breakfast</Button>
+          <Button variant='secondary' onClick={() => viewProducts("Lunch/Dinner")}>Lunch/Dinner</Button>
+        </div>
+        <div>
+          <Table>
+            <thead>
+              <tr>
+                <th>Products</th>
+                <th>Price</th>
               </tr>
-            )}
-        </tbody>
-      </Table>
-    </Container>
+            </thead>
+            <tbody>
+              {allProducts
+                .filter((product) =>
+                menuType === "Breakfast" 
+                ? product.type === "Breakfast"
+                : product.type === "Lunch"
+                )
+                 .map((val,key) => (
+                  <tr 
+                  key={key}
+                  onClick={() => handleAddToSelectedItems(val)}
+                  >
+                    <td>{val.name}</td>
+                    <td>{val.price}</td>
+                    <td>
+                      <img src={val.image} height={50}></img>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>            
+          </Table>
+        </div>
+      </Container>
     </>
   );
 }
-  
+
+Menu.protoTypes = {
+  handleAddToSelectedItems: func.isRequired,
+};
+
