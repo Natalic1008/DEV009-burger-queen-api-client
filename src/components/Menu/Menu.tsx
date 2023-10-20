@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Button, Container, Table } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import { products } from '../../Services/Request';
 import { func } from "prop-types";
+import style from "./Menu.module.css"
 
 interface val {
   type: string;
@@ -38,41 +39,31 @@ export default function Menu({ handleAddToSelectedItems }) {
 
     return (
       <>
-      <Container>
+      <Container className={style.Container}>
         <div>
-          <Button variant='primary' onClick={() => viewProducts("Breakfast")}>Breakfast</Button>
-          <Button variant='secondary' onClick={() => viewProducts("Lunch/Dinner")}>Lunch/Dinner</Button>
+          <Button variant='outline-primary' size="lg" onClick={() => viewProducts("Breakfast")}>Breakfast</Button>
+          <Button  variant='outline-primary' size="lg" onClick={() => viewProducts("Lunch/Dinner")}>Lunch/Dinner</Button>
         </div>
-        <div>
-          <Table>
-            <thead>
-              <tr>
-                <th>Products</th>
-                <th>Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              {allProducts
-                .filter((product) =>
-                menuType === "Breakfast" 
-                ? product.type === "Breakfast"
-                : product.type === "Lunch"
-                )
-                 .map((val,key) => (
-                  <tr 
-                  key={key}
-                  onClick={() => handleAddToSelectedItems(val)}
-                  >
-                    <td>{val.name}</td>
-                    <td>{val.price}</td>
-                    <td>
-                      <img src={val.image} height={50}></img>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>            
-          </Table>
-        </div>
+        <div className="d-flex justify-content-around">
+        {allProducts
+          .filter((product) =>
+            menuType === "Breakfast" ? product.type === "Breakfast" : product.type === "Lunch"
+          )
+          .map((product, index) => (
+            <div key={index} style={{ marginBottom: '10px' }}>
+              <Button
+                onClick={() => addToSelectedItems(product)}
+                variant="outline-primary" // Puedes cambiar la variante según tu preferencia
+              >
+                <div>
+                  <p>{product.name}</p>
+                  <p>{product.price}</p>
+                  <img src={product.image} height={50} alt={product.name} />
+                </div>
+              </Button>
+            </div>
+          ))}
+       </div>
       </Container>
     </>
   );
