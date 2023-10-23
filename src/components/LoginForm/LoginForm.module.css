@@ -5,10 +5,14 @@
     display: flex;
     flex-direction: column;
     align-content: center;
-    justify-content: center;
+    margin: 10px;
+    padding: 15px;
+    
    
 }
-
+.mb3{
+    background-color: #F39625;
+}
 .error{
     color: red;
     font-size: 20px;

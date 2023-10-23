@@ -12,7 +12,7 @@ interface val {
   image: string;
 }
 
-export default function Menu({ handleAddToSelectedItems }) {
+export default function Menu({ addToSelectedItems }) {
   const token = localStorage.getItem("token");
   const [allProducts, setAllProducts] = useState([]);
   const [menuType, setMenuType] = useState("Breakfast");
@@ -30,6 +30,7 @@ export default function Menu({ handleAddToSelectedItems }) {
         setAllProducts(data);
       })
       .catch((error) => {
+        console.error(error)
       });
     }, [token]);
     const viewProducts = (menu) => {
@@ -70,6 +71,6 @@ export default function Menu({ handleAddToSelectedItems }) {
 }
 
 Menu.protoTypes = {
-  handleAddToSelectedItems: func.isRequired,
+  addToSelectedItems: func.isRequired,
 };
 
