@@ -63,9 +63,11 @@ const LoginForm = () => {
           data-testid="password_login"
           onChange={(e) => setPassword(e.target.value)} />
       </Form.Group>
-      <Button className="btn btn-success" type="submit" onClick={userAuth} data-testid="submit_login">
+      <div className="d-grid gap-2">
+      <Button className="btn btn-success" type="submit" size="sm" onClick={userAuth} data-testid="submit_login">
       LOG IN
       </Button>
+      </div>
       {error &&
         <div className={style.error_message} >
           <span className={style.error}>{error}</span>
