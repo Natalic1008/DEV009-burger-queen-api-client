@@ -53,7 +53,7 @@ export default function Menu({ handleAddToSelectedItems }) {
             <div key={index} style={{ marginBottom: '10px' }}>
               <Button
                 onClick={() => addToSelectedItems(product)}
-                variant="outline-primary" // Puedes cambiar la variante según tu preferencia
+                variant="outline-primary" 
               >
                 <div>
                   <p>{product.name}</p>
