@@ -28,6 +28,8 @@ export default function OrderList() {
         <AppBar></AppBar>
         <div className="Principal">
         <Menu addToSelectedItems={addToSelectedItems}></Menu>
+        </div>
+        <div>
         <MainOrder selectedProducts={selectedProducts}></MainOrder>
         </div>
       </main>
