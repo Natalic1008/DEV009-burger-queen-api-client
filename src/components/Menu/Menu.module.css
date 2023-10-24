@@ -1,3 +1,14 @@
 .Container{
-    width: 500px;
 }
+.buttonMenu{
+    background-color: #eae8e6;
+    margin:3%;
+    padding: 3%;
+    display: flex;
+}
+.titulo{
+    font-size: 30px;
+    font-weight: bold;
+    font-family:"qwigley";
+    color:#563938
+ }

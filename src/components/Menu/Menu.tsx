@@ -4,14 +4,6 @@ import { products } from '../../Services/Request';
 import { func } from "prop-types";
 import style from "./Menu.module.css"
 
-interface val {
-  type: string;
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-}
-
 export default function Menu({ addToSelectedItems }) {
   const token = localStorage.getItem("token");
   const [allProducts, setAllProducts] = useState([]);
@@ -33,17 +25,17 @@ export default function Menu({ addToSelectedItems }) {
         console.error(error)
       });
     }, [token]);
-    const viewProducts = (menu) => {
+    const viewProducts = (menu: string) => {
       setMenuType(menu);
     };
     
 
     return (
       <>
-      <Container className={style.Container}>
-        <div>
-          <Button variant='outline-primary' size="lg" onClick={() => viewProducts("Breakfast")}>Breakfast</Button>
-          <Button  variant='outline-primary' size="lg" onClick={() => viewProducts("Lunch/Dinner")}>Lunch/Dinner</Button>
+      <Container className={`col-md-4 ${style.Container} mx-auto`}>
+        <div className={style.buttonMenu}>
+          <Button variant='outline-primary' onClick={() => viewProducts("Breakfast")}>Breakfast</Button>
+          <Button  variant='outline-primary' onClick={() => viewProducts("Lunch/Dinner")}>Lunch/Dinner</Button>
         </div>
         <div className="d-flex justify-content-around">
         {allProducts
@@ -57,7 +49,7 @@ export default function Menu({ addToSelectedItems }) {
                 variant="outline-primary" 
               >
                 <div>
-                  <p>{product.name}</p>
+                  <p>{product.name }</p>
                   <p>{product.price}</p>
                   <img src={product.image} height={50} alt={product.name} />
                 </div>
