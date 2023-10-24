@@ -3,10 +3,16 @@ import { Button, Container } from 'react-bootstrap';
 import { products } from '../../Services/Request';
 import { func } from "prop-types";
 import style from "./Menu.module.css"
+import {Product} from"..//../pages/Waiter/OrdersList"
 
-export default function Menu({ addToSelectedItems }) {
+interface MenuProps {
+  addToSelectedItems: (product: Product) => void;
+}
+
+export default function Menu({ addToSelectedItems }: MenuProps) {
+
   const token = localStorage.getItem("token");
-  const [allProducts, setAllProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [menuType, setMenuType] = useState("Breakfast");
   
   useEffect(() => {
@@ -25,6 +31,7 @@ export default function Menu({ addToSelectedItems }) {
         console.error(error)
       });
     }, [token]);
+
     const viewProducts = (menu: string) => {
       setMenuType(menu);
     };

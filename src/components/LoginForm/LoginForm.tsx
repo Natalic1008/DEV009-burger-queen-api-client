@@ -15,7 +15,7 @@ const LoginForm = () => {
 
   const navigateTo = useNavigate();
 
-  const userAuth = (e: React.MouseEvent)=> {
+  const userAuth = (e: React.MouseEvent) => {
     e.preventDefault();
     auth(email, password)
       .then((response) => {
@@ -64,9 +64,9 @@ const LoginForm = () => {
           onChange={(e) => setPassword(e.target.value)} />
       </Form.Group>
       <div className="d-grid gap-2">
-      <Button className="btn btn-success" type="submit" size="sm" onClick={userAuth} data-testid="submit_login">
-      LOG IN
-      </Button>
+        <Button className="btn btn-success" type="submit" size="sm" onClick={userAuth} data-testid="submit_login">
+          LOG IN
+        </Button>
       </div>
       {error &&
         <div className={style.error_message} >
