@@ -16,7 +16,6 @@ export interface Product {
 export default function OrderList() {
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
   const addToSelectedItems = (product:Product) => {
-     // Implementa la lógica para agregar productos a selectedProducts
      setSelectedProducts((prevSelectedProducts) => [
       ...prevSelectedProducts,
       { ...product, quantity: 1 },

@@ -1,6 +1,6 @@
 import logo from "../../assets/hamburguesa.png"
 import { Navbar, Container, Nav } from 'react-bootstrap'
-import style from "./AppBar.css"
+import style from "./AppBar.module.css"
 
 export default function AppBar() {
   const userRole = localStorage.getItem("role");
@@ -20,8 +20,8 @@ export default function AppBar() {
           </Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
-            <Nav >
-              <Nav.Item className="mr-2">
+            <Nav className={style.navButton}>
+              <Nav.Item>
                 <span>Signed in as: {userRole}</span>
               </Nav.Item>
             </Nav>
