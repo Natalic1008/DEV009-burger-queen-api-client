@@ -1,30 +1,36 @@
 import logo from "../../assets/hamburguesa.png"
-import { Navbar, Container } from 'react-bootstrap'
+import { Navbar, Container, Nav } from 'react-bootstrap'
+import style from "./AppBar.module.css"
 
 export default function AppBar() {
   const userRole = localStorage.getItem("role");
   return (
     <>
-    <Navbar className="bg-body-tertiary">
-      <Container>
-        <Navbar.Brand href="#home"></Navbar.Brand>
-        <img
-            alt=""
-            src={logo}
-            width="50"
-            height="50"
-            className="d-inline-block align-top"
-          />{' '}
-          <Navbar.Text style={{fontSize:40}} >Burger Queen</Navbar.Text>
-        <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text>
-            Signed in as: <a href="#login">{userRole}</a>
-          </Navbar.Text>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-    
-  </>
+      <Navbar className="bg-body-tertiary">
+        <Container>
+          <Navbar.Brand href="#/">
+            <img
+              alt=""
+              src={logo}
+              width="50"
+              height="50"
+              className="d-inline-block align-top"
+            />{' '}
+            <Navbar.Text className={style.tituloNav}>Burger Queen</Navbar.Text>
+          </Navbar.Brand>
+          <Navbar.Toggle />
+          <Navbar.Collapse className="justify-content-end">
+            <Nav >
+              <Nav.Item className="mr-2">
+                <span>Signed in as: {userRole}</span>
+              </Nav.Item>
+            </Nav>
+              <Nav.Item>
+                <Nav.Link href="/">Close sesion</Nav.Link>
+              </Nav.Item>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </>
   )
 }

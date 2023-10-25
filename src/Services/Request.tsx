@@ -11,3 +11,14 @@ export const auth = (email:string, password:string) => {
         })
     });
 };
+
+export const products =(token) => {
+    return fetch('http://localhost:8080/products',{
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Authorization': `Bearer ${token}`
+        },
+    })
+}
