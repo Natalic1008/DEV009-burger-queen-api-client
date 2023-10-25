@@ -1,6 +1,6 @@
 import logo from "../../assets/hamburguesa.png"
 import { Navbar, Container, Nav } from 'react-bootstrap'
-import style from "./AppBar.css"
+import style from "./AppBar.module.css"
 
 export default function AppBar() {
   const userRole = localStorage.getItem("role");

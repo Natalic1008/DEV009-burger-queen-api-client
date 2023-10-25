@@ -4,7 +4,8 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import { Container } from 'react-bootstrap';
 import {Product} from'../../pages/Waiter/OrdersList';
-
+import Table from 'react-bootstrap/Table';
+import style from './MainOrder.module.css'
 
 
 interface MainOrderProps {
@@ -15,7 +16,7 @@ const MainOrder : React.FC<MainOrderProps> = ({ selectedProducts }) => {
 
 
   return (<>
-    <Container>
+    <Container className={style.Container_order}>
       <section>
         <Form>
           <Row>
@@ -32,13 +33,13 @@ const MainOrder : React.FC<MainOrderProps> = ({ selectedProducts }) => {
       </section>
       <section>
         <div>
-          <h1>Order</h1>
-        <table>
+          <h2>ORDER</h2>
+        <Table striped bordered hover size="sm">
         <thead>
           <tr>
-            <th>Producto</th>
-            <th>Cantidad</th>
-            <th>Precio Unitario</th>
+            <th>PRODUCT</th>
+            <th>QUANTITY</th>
+            <th>PRICE</th>
           </tr>
         </thead>
         <tbody>
@@ -50,7 +51,7 @@ const MainOrder : React.FC<MainOrderProps> = ({ selectedProducts }) => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
 
           <Button type="submit" size="sm"
             data-testid="send_order">
