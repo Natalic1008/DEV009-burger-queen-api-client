@@ -99,7 +99,7 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts }) => {
                       </Button>
                       </td>
                     <td>{product.quantity}</td>
-                    <td>
+                    <td width='10px'>
                       <Button
                         variant="danger"
                         size="sm"
@@ -111,8 +111,8 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts }) => {
                     <td>${(product.price * product.quantity).toFixed(2)}</td>
                     <td><img src= {IconoDelete}  alt="Delete" width="30px" height="25px" /></td>
                   </tr>
-
                 ))}
+                <tr> calculadora</tr>
               </tbody>
             </Table>
 
