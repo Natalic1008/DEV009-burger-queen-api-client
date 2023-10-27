@@ -7,7 +7,7 @@ import { Product } from '../../pages/Waiter/OrdersList';
 import Table from 'react-bootstrap/Table';
 import style from './MainOrder.module.css'
 import { useState, useEffect } from 'react';
-
+import IconoDelete from'../../assets/IconoDelete.png'
 
 
 interface MainOrderProps {
@@ -74,14 +74,14 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts }) => {
         <section>
           <div>
             <h2>ORDER</h2>
-            <Table striped bordered hover size="sm">
+            <Table striped size="sm">
               <thead>
                 <tr>
-                  <th>PRODUCT</th>
-                  <th>ACTIONS +</th>
-                  <th>QUANTITY</th>
-                  <th>ACTIONS -</th>
-                  <th>PRICE</th>
+                  <th></th>
+                  <th>+</th>
+                  <th></th>
+                  <th>-</th>
+                  <th></th>
                   <th></th>
                 </tr>
               </thead>
@@ -99,7 +99,7 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts }) => {
                       </Button>
                       </td>
                     <td>{product.quantity}</td>
-                    <td>
+                    <td width='10px'>
                       <Button
                         variant="danger"
                         size="sm"
@@ -109,10 +109,10 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts }) => {
                       </Button>
                     </td>
                     <td>${(product.price * product.quantity).toFixed(2)}</td>
-                    <td></td>
+                    <td><img src= {IconoDelete}  alt="Delete" width="30px" height="25px" /></td>
                   </tr>
-
                 ))}
+                <tr> calculadora</tr>
               </tbody>
             </Table>
 

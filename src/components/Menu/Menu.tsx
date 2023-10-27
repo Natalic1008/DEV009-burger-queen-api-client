@@ -5,7 +5,7 @@ import { func } from "prop-types";
 import style from "./Menu.module.css"
 import {Product} from"..//../pages/Waiter/OrdersList"
 
-interface MenuProps {
+type MenuProps = {
   addToSelectedItems: (product: Product) => void;
 }
 
