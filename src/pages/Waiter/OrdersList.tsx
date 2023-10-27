@@ -4,13 +4,13 @@ import MainOrder from "../../components/MainOrder/MainOrder";
 import Menu from "../../components/Menu/Menu";
 
 
-export interface Product {
-  type: string;
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  quantity:number;
+export type Product = {
+  type: string,
+  id: number,
+  name: string,
+  price: number,
+  image: string,
+  quantity:number,
 }
 
 export default function OrderList() {
@@ -20,6 +20,7 @@ export default function OrderList() {
       ...prevSelectedProducts,
       { ...product, quantity: 1 },
     ]);
+    console.log("selectedProducts updated:", selectedProducts);
   };
 
     return (
