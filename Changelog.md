@@ -12,6 +12,7 @@
 - Agregamos la función de menú, donde podemos ver los productos de acuerdo a la selección dada por el usuario.
 - Agregamos la funcion de cerrar sesión utilizando Bootstrap
 - Agregamos la funcion de selecionar los productos y visualizar sus datos en la tabla de pedidos
+- Realizamos el test de login en el cual se valido el usuario (mesero) y que al logiarse se redirigiera a la vista del mesero.
 
 ### Changed
 
