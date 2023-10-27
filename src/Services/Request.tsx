@@ -12,7 +12,7 @@ export const auth = (email:string, password:string) => {
     });
 };
 
-export const products =(token) => {
+export const products =(token:string) => {
     return fetch('http://localhost:8080/products',{
         method: 'GET',
         headers: {
