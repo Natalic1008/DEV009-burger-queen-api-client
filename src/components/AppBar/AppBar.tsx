@@ -20,8 +20,8 @@ export default function AppBar() {
           </Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
-            <Nav >
-              <Nav.Item className="mr-2">
+            <Nav className={style.navButton}>
+              <Nav.Item>
                 <span>Signed in as: {userRole}</span>
               </Nav.Item>
             </Nav>

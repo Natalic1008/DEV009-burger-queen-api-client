@@ -1,6 +1,9 @@
-.tituloNav{
-    font-size: 30px;
+.tituloNav {
+    font-size: 40px;
     font-weight: bold;
     font-family:"qwigley";
     color:#563938
  }
+
+ .navButton{
+    margin-right:25px;
