@@ -1,0 +1,10 @@
+.main{
+    display: grid;
+    grid-template-columns: 40% 40%;
+    grid-template-rows: 100%;
+    justify-content: center;
+    }
+
+.order{
+ margin-left: 100px;
+}

@@ -2,6 +2,7 @@ import { useState } from "react";
 import AppBar from "../../components/AppBar/AppBar";
 import MainOrder from "../../components/MainOrder/MainOrder";
 import Menu from "../../components/Menu/Menu";
+import style from "../Waiter/OrderList.module.css"
 
 
 export type Product = {
@@ -11,6 +12,7 @@ export type Product = {
   price: number,
   image: string,
   quantity:number,
+  token:string,
 }
 
 export default function OrderList() {
@@ -27,11 +29,11 @@ export default function OrderList() {
     return (
       <main>
         <AppBar></AppBar>
-        <div className="Principal">
+        <div className={style.main}>
         <Menu addToSelectedItems={addToSelectedItems}></Menu>
-        </div>
-        <div>
+        <div className={style.order}>
         <MainOrder selectedProducts={selectedProducts}></MainOrder>
+        </div>
         </div>
       </main>
     )
