@@ -1,4 +1,25 @@
 # Changelog
+## 1.0.2 - 2023-10-30
+
+### Sprint learnings
+
+- Aprendimos a usar el grid en CSS
+- Aprendimos a definir correctamente el uso de TypeScript
+- Aprendimos a pasar los estados como propiedades de otras funciones
+
+### Added
+
+- Agregamos  estilo al componente menú.
+- Agregamos el botón de cerrar sesión utilizando Bootstrap
+- Agregamos la funcion de selecionar el mismo producto y que no nos adicione otro item sino que lo sume al pedido.
+
+
+### Changed
+
+- La funcionalidad de tomar pedido se está refactorizando, teniendo en cuenta que no repita producto y que funcione los botones de  + y - 
+
+
+# Changelog
 ## 1.0.1 - 2023-10-24
 
 ### Sprint learnings
