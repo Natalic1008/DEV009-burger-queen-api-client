@@ -17,6 +17,7 @@ export type Product = {
 export default function OrderList() {
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
 
+
   const addToSelectedItems = (product: Product) => {
     setSelectedProducts((prevSelectedProducts) => [
       ...prevSelectedProducts,
@@ -35,6 +36,7 @@ export default function OrderList() {
             selectedProducts={selectedProducts}
             setSelectedProducts={setSelectedProducts} // Pasa setSelectedProducts a MainOrder
           />
+
         </div>
       </div>
     </main>

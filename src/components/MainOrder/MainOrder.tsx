@@ -10,13 +10,14 @@ import { useState, useEffect } from 'react';
 import IconoDelete from '../../assets/IconoDelete.png'
 
 
-interface MainOrderProps {
+type MainOrderProps = {
   selectedProducts: Product[];
   setSelectedProducts: (products: Product[]) => void; // Agregar función para actualizar selectedProducts
 }
 
 const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, setSelectedProducts }) => {
   const [order, setOrder] = useState<Product[]>(selectedProducts);
+
 
   useEffect(() => {
     setOrder(selectedProducts);
@@ -131,7 +132,6 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, setSelectedProd
                   </tr>
                 </tbody>
               </Table>
-
               <Button type="submit" size="sm" data-testid="send_order">
                 Send
               </Button>
