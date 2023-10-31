@@ -18,6 +18,7 @@ export type Product = {
 export default function OrderList() {
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
   const addToSelectedItems = (product:Product) => {
+     // Implementa la lógica para agregar productos a selectedProducts
      setSelectedProducts((prevSelectedProducts) => [
       ...prevSelectedProducts,
       { ...product, quantity: 1 },
@@ -30,9 +31,10 @@ export default function OrderList() {
         <AppBar></AppBar>
         <div className={style.main}>
         <Menu addToSelectedItems={addToSelectedItems}></Menu>
-        <div className={style.order}>
-        <MainOrder selectedProducts={selectedProducts}></MainOrder>
-        </div>
+        <MainOrder 
+        selectedProducts={selectedProducts}>
+        setSelectedProducts={setSelectedProducts}  
+        </MainOrder>
         </div>
       </main>
     )

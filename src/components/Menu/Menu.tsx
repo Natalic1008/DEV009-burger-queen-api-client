@@ -16,7 +16,7 @@ export default function Menu({ addToSelectedItems }: MenuProps) {
   const [menuType, setMenuType] = useState("Breakfast");
   
   useEffect(() => {
-    products(token)
+    products(token!)
     .then((response) => {
       if (!response.ok) {
         console.log(token)

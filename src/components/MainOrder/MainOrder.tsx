@@ -7,52 +7,69 @@ import { Product } from '../../pages/Waiter/OrdersList';
 import Table from 'react-bootstrap/Table';
 import style from './MainOrder.module.css'
 import { useState, useEffect } from 'react';
-import IconoDelete from'../../assets/IconoDelete.png'
+import IconoDelete from '../../assets/IconoDelete.png'
 
 
-interface MainOrderProps {
+type MainOrderProps = {
   selectedProducts: Product[];
+ setSelectedProducts: React.Dispatch<React.SetStateAction<Product[]>>; 
 }
 
-const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts }) => {
+const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts,setSelectedProducts }) => {
 
-  const [order, setOrder] = useState<Product[]>(selectedProducts);
+  const [order, setOrder] = useState<{ [id: number]: number }>({});
 
   // Este efecto se ejecuta cada vez que selectedProducts cambia
   useEffect(() => {
-    // Aquí sincroniza selectedProducts con order
-    setOrder(selectedProducts);
-  }, [selectedProducts]);
+   // Actualiza el estado de order basado en los productos seleccionados
+   const newOrder: { [id: number]: number } = {};
+
+   selectedProducts.forEach((product) => {
+     if (newOrder[product.id]) {
+       newOrder[product.id] += 1;
+     } else {
+       newOrder[product.id] = 1;
+     }
+   });
+
+   setOrder(newOrder);
+ }, [selectedProducts]);
 
 
-  const addProduct = (product: Product) => {
-    const index = order.findIndex((p) => p.id === product.id);
-    if (index === -1) {
-      // Si el producto no está en el pedido, agrégalo con cantidad 1
-      setOrder([...order, { ...product, quantity: 1 }]);
-
-    } else {
-      // Si el producto ya está en el pedido, incrementa la cantidad
-      const updatedOrder = [...order];
-      updatedOrder[index].quantity += 1;
-      setOrder(updatedOrder);
+ const addProduct = (product: Product) => {
+  const updatedSelectedProducts = selectedProducts.map((p) => {
+    if (p.id === product.id) {
+      const updatedQuantity = p.quantity + 1;
+      return {
+        ...p,
+        quantity: updatedQuantity,
+       
+      };
     }
-    console.log("Product added:", product);
-  };
+    return p;
+  });
 
-  const removeProduct = (product: Product) => {
-    const index = order.findIndex((p) => p.id === product.id);
-    if (index !== -1) {
-      const updatedOrder = [...order];
-      if (updatedOrder[index].quantity > 1) {
-        updatedOrder[index].quantity -= 1;
-      } else {
-        updatedOrder.splice(index, 1);
-      }
-      setOrder(updatedOrder);
+  setSelectedProducts(updatedSelectedProducts);
+};
+
+const removeProduct = (product: Product) => {
+  const updatedSelectedProducts = selectedProducts.map((p) => {
+    if (p.id === product.id && p.quantity > 1) {
+      const updatedQuantity = p.quantity - 1;
+      return {
+        ...p,
+        quantity: updatedQuantity,
+      };
     }
-    console.log("Product removed:", product);
-  };
+    return p;
+  });
+
+  setSelectedProducts(updatedSelectedProducts);
+};
+
+
+};
+
 
   return (
     <>
@@ -86,33 +103,37 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts }) => {
                 </tr>
               </thead>
               <tbody>
-                {order.map((product, index) => (
-                  <tr key={index}>
+                {selectedProducts.map((product) => (
+                  <tr key={product.id}>
                     <td>{product.name}</td>
                     <td>
                       <Button
                         variant="success"
                         size="sm"
                         onClick={() => addProduct(product)}
-                        >
+                      >
                         +
                       </Button>
-                      </td>
+                    </td>
                     <td>{product.quantity}</td>
                     <td width='10px'>
                       <Button
                         variant="danger"
                         size="sm"
                         onClick={() => removeProduct(product)}
-                        >
+                      >
                         -
                       </Button>
                     </td>
-                    <td>${(product.price * product.quantity).toFixed(2)}</td>
-                    <td><img src= {IconoDelete}  alt="Delete" width="30px" height="25px" /></td>
+                    <td>${(product.price * (order[product.id] || 0)).toFixed(2)}</td>
+                    <td><img src={IconoDelete} alt="Delete" width="30px" height="25px" /></td>
                   </tr>
                 ))}
-                <tr> calculadora</tr>
+                <tr>
+                  <td colSpan={6}>
+                    <strong>TOTAL: ${calculateTotal()}</strong>
+                  </td>
+                </tr>
               </tbody>
             </Table>
 
