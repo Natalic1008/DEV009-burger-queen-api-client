@@ -12,139 +12,134 @@ import IconoDelete from '../../assets/IconoDelete.png'
 
 type MainOrderProps = {
   selectedProducts: Product[];
- setSelectedProducts: React.Dispatch<React.SetStateAction<Product[]>>; 
+  setSelectedProducts: (products: Product[]) => void; // Agregar función para actualizar selectedProducts
 }
 
-const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts,setSelectedProducts }) => {
+const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, setSelectedProducts }) => {
+  const [order, setOrder] = useState<Product[]>(selectedProducts);
 
-  const [order, setOrder] = useState<{ [id: number]: number }>({});
 
-  // Este efecto se ejecuta cada vez que selectedProducts cambia
   useEffect(() => {
-   // Actualiza el estado de order basado en los productos seleccionados
-   const newOrder: { [id: number]: number } = {};
+    setOrder(selectedProducts);
+  }, [selectedProducts]);
 
-   selectedProducts.forEach((product) => {
-     if (newOrder[product.id]) {
-       newOrder[product.id] += 1;
-     } else {
-       newOrder[product.id] = 1;
-     }
-   });
-
-   setOrder(newOrder);
- }, [selectedProducts]);
-
-
- const addProduct = (product: Product) => {
-  const updatedSelectedProducts = selectedProducts.map((p) => {
-    if (p.id === product.id) {
-      const updatedQuantity = p.quantity + 1;
-      return {
-        ...p,
-        quantity: updatedQuantity,
-       
-      };
+  const addProduct = (product: Product) => {
+    const index = order.findIndex((p) => p.id === product.id);
+    if (index === -1) {
+      setOrder([...order, { ...product, quantity: 1 }]);
+    } else {
+      const updatedOrder = [...order];
+      updatedOrder[index].quantity += 1;
+      setOrder(updatedOrder);
     }
-    return p;
-  });
 
-  setSelectedProducts(updatedSelectedProducts);
-};
+    // Actualizar selectedProducts
+    const updatedSelectedProducts = selectedProducts.map((p) =>
+      p.id === product.id ? { ...p, quantity: p.quantity + 1 } : p
+    );
+    setSelectedProducts(updatedSelectedProducts);
+  };
 
-const removeProduct = (product: Product) => {
-  const updatedSelectedProducts = selectedProducts.map((p) => {
-    if (p.id === product.id && p.quantity > 1) {
-      const updatedQuantity = p.quantity - 1;
-      return {
-        ...p,
-        quantity: updatedQuantity,
-      };
+  const removeProduct = (product: Product) => {
+    const index = order.findIndex((p) => p.id === product.id);
+    if (index !== -1) {
+      const updatedOrder = [...order];
+      if (updatedOrder[index].quantity > 1) {
+        updatedOrder[index].quantity -= 1;
+      } else {
+        updatedOrder.splice(index, 1);
+      }
+      setOrder(updatedOrder);
     }
-    return p;
-  });
 
-  setSelectedProducts(updatedSelectedProducts);
-};
+    // Actualizar selectedProducts
+    const updatedSelectedProducts = selectedProducts.map((p) =>
+      p.id === product.id ? { ...p, quantity: p.quantity - 1 } : p
+    );
+    setSelectedProducts(updatedSelectedProducts);
+  };
 
+  const calculateTotal = () => {
+    return selectedProducts.reduce(
+      (total, product) => total + (product.price * product.quantity),
+      0
+      );
+    };
+    
+  
 
-};
-
-
-  return (
-    <>
-      <Container className={style.Container_order}>
-        <section>
-          <Form>
-            <Row>
-              <Col>
-                <Form.Label>Client</Form.Label>
-                <Form.Control placeholder="Client name" />
-              </Col>
-              <Col>
-                <Form.Label>Table</Form.Label>
-                <Form.Control placeholder="# Table" />
-              </Col>
-            </Row>
-          </Form>
-        </section>
-        <section>
-          <div>
-            <h2>ORDER</h2>
-            <Table striped size="sm">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>+</th>
-                  <th></th>
-                  <th>-</th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {selectedProducts.map((product) => (
-                  <tr key={product.id}>
-                    <td>{product.name}</td>
-                    <td>
-                      <Button
-                        variant="success"
-                        size="sm"
-                        onClick={() => addProduct(product)}
-                      >
-                        +
-                      </Button>
-                    </td>
-                    <td>{product.quantity}</td>
-                    <td width='10px'>
-                      <Button
-                        variant="danger"
-                        size="sm"
-                        onClick={() => removeProduct(product)}
-                      >
-                        -
-                      </Button>
-                    </td>
-                    <td>${(product.price * (order[product.id] || 0)).toFixed(2)}</td>
-                    <td><img src={IconoDelete} alt="Delete" width="30px" height="25px" /></td>
+    return (
+      <>
+        <Container className={style.Container_order}>
+          <section>
+            <Form>
+              <Row>
+                <Col>
+                  <Form.Label>Client</Form.Label>
+                  <Form.Control placeholder="Client name" />
+                </Col>
+                <Col>
+                  <Form.Label>Table</Form.Label>
+                  <Form.Control placeholder="# Table" />
+                </Col>
+              </Row>
+            </Form>
+          </section>
+          <section>
+            <div>
+              <h2>ORDER</h2>
+              <Table striped size="sm">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>+</th>
+                    <th></th>
+                    <th>-</th>
+                    <th></th>
+                    <th></th>
                   </tr>
-                ))}
-                <tr>
-                  <td colSpan={6}>
+                </thead>
+                <tbody>
+                  {order.map((product, index) => (
+                    <tr key={index}>
+                      <td>{product.name}</td>
+                      <td>
+                        <Button
+                          variant="danger"
+                          size="sm"
+                          onClick={() => removeProduct(product)}
+                        >
+                          -
+                        </Button>
+                      </td>
+                      <td>{product.quantity}</td>
+                      <td width='10px'>
+                        <Button
+                          variant="success"
+                          size="sm"
+                          onClick={() => addProduct(product)}
+                        >
+                          +
+                        </Button>
+                      </td>
+                      <td>${(product.price * product.quantity).toFixed(2)}</td>
+                      <td><img src={IconoDelete} alt="Delete" width="30px" height="25px" /></td>
+                    </tr>
+                  ))}
+                  <tr> <td colSpan={6}>
                     <strong>TOTAL: ${calculateTotal()}</strong>
                   </td>
-                </tr>
-              </tbody>
-            </Table>
+                  </tr>
+                </tbody>
+              </Table>
+              <Button type="submit" size="sm" data-testid="send_order">
+                Send
+              </Button>
+            </div>
+          </section>
+        </Container>
+      </>
+    );
+  };
 
-            <Button type="submit" size="sm" data-testid="send_order">
-              Send
-            </Button>
-          </div>
-        </section>
-      </Container>
-    </>
-  );
-};
-
-export default MainOrder;
+  export default MainOrder;

@@ -4,6 +4,14 @@ import style from "./AppBar.module.css"
 
 export default function AppBar() {
   const userRole = localStorage.getItem("role");
+
+  function signOut() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    localStorage.removeItem('name');
+  }
+
+
   return (
     <>
       <Navbar className="bg-body-tertiary">
@@ -20,14 +28,19 @@ export default function AppBar() {
           </Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
-            <Nav className={style.navButton}>
+            <Nav className={style.userRole}>
               <Nav.Item>
-                <span>Signed in as: {userRole}</span>
+                <span>{userRole}</span>
               </Nav.Item>
             </Nav>
-              <Nav.Item>
-                <Nav.Link href="/">Close sesion</Nav.Link>
-              </Nav.Item>
+            <Nav.Item>
+              <Nav.Link href="/" onClick={signOut} className={style.iconSignOut}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+                  <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                </svg>
+              </Nav.Link>
+            </Nav.Item>
           </Navbar.Collapse>
         </Container>
       </Navbar>
