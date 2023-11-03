@@ -12,10 +12,12 @@ import IconoDelete from '../../assets/IconoDelete.png'
 
 type MainOrderProps = {
   selectedProducts: Product[];
-  setSelectedProducts: (products: Product[]) => void; // Agregar función para actualizar selectedProducts
+  setSelectedProducts: (products: Product[]) => void; 
+  onAddProduct?: (product: Product) => void;
 }
 
-const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, setSelectedProducts }) => {
+const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, setSelectedProducts: onAddProduct }) => {
+  console.log(selectedProducts)
   const [order, setOrder] = useState<Product[]>(selectedProducts);
 
 
@@ -34,10 +36,14 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, setSelectedProd
     }
 
     // Actualizar selectedProducts
-    const updatedSelectedProducts = selectedProducts.map((p) =>
-      p.id === product.id ? { ...p, quantity: p.quantity + 1 } : p
-    );
-    setSelectedProducts(updatedSelectedProducts);
+    // const updatedSelectedProducts = selectedProducts.map((p) =>
+    //   p.id === product.id ? { ...p, quantity: p.quantity + 1 } : p
+    // );
+    // setSelectedProducts(updatedSelectedProducts);
+
+    if (onAddProduct) {
+      onAddProduct(product)
+    }
   };
 
   const removeProduct = (product: Product) => {

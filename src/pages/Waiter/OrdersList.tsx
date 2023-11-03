@@ -26,6 +26,14 @@ export default function OrderList() {
     console.log("selectedProducts updated:", selectedProducts);
   };
 
+  // Actualizar selectedProducts
+  const handleAddProduct = (product: Product) => {
+    setSelectedProducts((prevSelectedProducts) => {
+      return prevSelectedProducts.map((p) => p.id === product.id ? { ...p, quantity: p.quantity + 1 } : p
+    );
+    });
+  }
+
   return (
     <main>
       <AppBar />
@@ -35,6 +43,7 @@ export default function OrderList() {
           <MainOrder
             selectedProducts={selectedProducts}
             setSelectedProducts={setSelectedProducts} // Pasa setSelectedProducts a MainOrder
+            onAddProduct={handleAddProduct}
           />
 
         </div>
