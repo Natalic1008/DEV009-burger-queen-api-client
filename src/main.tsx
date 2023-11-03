@@ -4,7 +4,9 @@ import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import OrderList from './pages/Waiter/OrdersList.tsx';
 import App from './App.tsx';
-import Login from './pages/Login/login.tsx';
+import Login from './pages/Login/Login.tsx';
+import OrderHistory from './pages/Waiter/OrderHistory.tsx';
+
 
 const router = createBrowserRouter([
   {
@@ -17,9 +19,13 @@ const router = createBrowserRouter([
     children: [
       
       {
-        path: "orders",
+        path: "new",
         element: <OrderList />,
       },
+      {
+        path:"orders",
+        element:<OrderHistory/>
+      }
     ]
   }
 
