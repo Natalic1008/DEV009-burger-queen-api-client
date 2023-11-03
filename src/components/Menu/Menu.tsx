@@ -7,10 +7,10 @@ import style from "./Menu.module.css";
 import { Product } from "..//../pages/Waiter/OrdersList";
 
 type MenuProps = {
-  addToSelectedItems: (product: Product) => void;
-}
+   handleAddToSelectedItems: (product: Product) => void;
+};
 
-export default function Menu({ addToSelectedItems }: MenuProps) {
+export default function Menu({ handleAddToSelectedItems }: MenuProps) {
   const token = localStorage.getItem("token");
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [menuType, setMenuType] = useState("Breakfast");
@@ -32,21 +32,20 @@ export default function Menu({ addToSelectedItems }: MenuProps) {
       });
   }, [token]);
 
-  const viewProducts = (menu: string) => {
+  const handleViewProducts = (menu: string) => {
     setMenuType(menu);
   };
 
-  // Cambio: Declara una variable para rastrear los productos seleccionados en el menú
-  const [selectedProductsInMenu, setSelectedProductsInMenu] = useState<Product[]>([]);
+  
 
   return (
     <Container className={style.menuContainer}>
       <div className={style.buttonMenu}>
         <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-          <ToggleButton id="tbg-radio-1" value={1} onClick={() => viewProducts("Breakfast")} variant="outline-warning" className={style.buttonBreakfast}>
+          <ToggleButton id="tbg-radio-1" value={1} onClick={() => handleViewProducts("Breakfast")} variant="outline-warning" className={style.buttonBreakfast}>
             Breakfast
           </ToggleButton>
-          <ToggleButton id="tbg-radio-2" value={2} onClick={() => viewProducts("Lunch/Dinner")} variant="outline-warning">
+          <ToggleButton id="tbg-radio-2" value={2} onClick={() => handleViewProducts("Lunch/Dinner")} variant="outline-warning">
             Lunch/Dinner
           </ToggleButton>
         </ToggleButtonGroup>
@@ -58,17 +57,15 @@ export default function Menu({ addToSelectedItems }: MenuProps) {
             menuType === "Breakfast" ? product.type === "Breakfast" : product.type === "Lunch"
           )
           .map((product, index) => (
-            <div key={index} style={{ marginBottom: '10px' }}>
+            <div 
+            key={index} style={{ marginBottom: '10px' }}>
               <Button
                 onClick={() => {
-                  addToSelectedItems(product);
-                  // Cambio: Agrega el producto seleccionado a la lista de selectedProductsInMenu
-                  setSelectedProductsInMenu([...selectedProductsInMenu, product]);
+                  handleAddToSelectedItems(product);
+                 
                 }}
                 variant="outline-warning"
-                // Cambio: Deshabilita el botón de selección si el producto ya está en MainOrder
-                disabled={selectedProductsInMenu.some((p: Product) => p.id === product.id)}
-              >
+                >
                 <div className={style.cardsMenu}>
                   <p>
                     <img className={style.productsImage} src={product.image} height={35} alt={product.name} />

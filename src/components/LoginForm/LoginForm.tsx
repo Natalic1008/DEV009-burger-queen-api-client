@@ -33,7 +33,7 @@ const LoginForm = () => {
         if (user.role === 'admin' || user.role === 'Admin') {
           navigateTo("/admin/dashboard")
         } else if (user.role === 'waiter') {
-          navigateTo("/Waiter/orders")
+          navigateTo("/Waiter/new")
         } else {
           navigateTo("/chef/dashboard")
         }
