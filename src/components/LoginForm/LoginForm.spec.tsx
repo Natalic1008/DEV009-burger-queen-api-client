@@ -42,7 +42,7 @@ describe("LoginForm", () => {
 
     await waitFor(() => {
       expect(auth).toHaveBeenCalledWith("waiter@example.com", "password123");
-      expect(navigateMock).toHaveBeenCalledWith("/Waiter/orders");
+      expect(navigateMock).toHaveBeenCalledWith("/Waiter/new");
     });
   });
 }
