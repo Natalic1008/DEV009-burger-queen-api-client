@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Product } from '../../pages/Waiter/OrdersList';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -8,6 +8,8 @@ import { Container } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import style from './MainOrder.module.css'
 import IconoDelete from '../../assets/IconoDelete.png'
+import NavigateTo from "../Navigate/navigate";
+import { postOrder } from "../../Services/Request";
 
 type MainOrderProps = {
   selectedProducts: Product[];
@@ -17,15 +19,45 @@ type MainOrderProps = {
 };
 
 const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, handleRemoveSelectItems, handleAddToSelectedItems,handleDeleteSelectedItem }) => {
- 
+  
+  const token = localStorage.getItem("token");
+  const handleClick = NavigateTo("/Waiter/orders");
+  
   const calculateTotal = () => {
     return selectedProducts.reduce(
       (total, product) => total + (product.price * product.quantity),
       0
       );
   };
- 
 
+  const currentDateTime = new Date().toLocaleTimeString([], { hour12: false });
+  const [dataEntry] = useState(currentDateTime);
+
+  const [client, setClient] = useState("");
+  const [table, setTable]= useState("");
+  const [status] = useState ("Pending");
+
+  function handleAddOrder(table) {
+    const data = {
+      table: table,
+      client: client,
+      products: selectedProducts,
+      status: status,
+      dataEntry: dataEntry,
+    };
+    console.log (data);
+
+   
+    postOrder(data, token)
+      .then((response) => {
+        if (response.ok) {
+        return response.json();
+        }
+      })
+      .catch((error) => {
+        throw error;
+      });
+  }
   return (
     <>
       <Container className={style.Container_order}>
@@ -34,11 +66,13 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, handleRemoveSel
             <Row>
               <Col>
                 <Form.Label>Client</Form.Label>
-                <Form.Control placeholder="Client name" />
+                <Form.Control placeholder="Client name"
+                  onChange={(e) => setClient(e.target.value)} />
               </Col>
               <Col>
                 <Form.Label>Table</Form.Label>
-                <Form.Control placeholder="# Table" />
+                <Form.Control placeholder="# Table"
+                  onChange={(e) => setTable(e.target.value)} />
               </Col>
             </Row>
           </Form>
@@ -75,8 +109,8 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, handleRemoveSel
                       </Button>
                     </td>
                     <td>${(product.price * product.quantity).toFixed(2)}</td>
-                    <td><img src={IconoDelete} alt="Delete" width="30px" height="25px" 
-                         onClick={() => handleDeleteSelectedItem(product)}/></td>
+                    <td><img src={IconoDelete} alt="Delete" width="30px" height="25px"
+                      onClick={() => handleDeleteSelectedItem(product)} /></td>
                   </tr>
                 ))}
                 <tr><td colSpan={6}>
@@ -84,8 +118,9 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, handleRemoveSel
                 </td>
                 </tr>
               </tbody>
-            </Table>
-            <Button type="submit" size="sm" data-testid="send_order">
+              </Table>
+            <Button type="submit" size="sm" data-testid="send_order" 
+            onClick={() =>{handleAddOrder(table);handleClick()}}>
               Send
             </Button>
           </div>
