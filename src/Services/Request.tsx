@@ -22,3 +22,19 @@ export const products =(token:string) => {
         },
     })
 }
+
+export const postOrder = (data: {
+    client: string,
+    table: number,
+    product: string,
+}, token: string) => {
+    return fetch(`http://localhost:8080/orders`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(data),
+    });
+};
