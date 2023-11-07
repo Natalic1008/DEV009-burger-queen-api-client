@@ -1,3 +1,5 @@
+import { Product } from "../pages/Waiter/OrdersList";
+
 export const auth = (email:string, password:string) => {
     return fetch('http://localhost:8080/login', {
         method: 'POST',
@@ -25,8 +27,8 @@ export const products =(token:string) => {
 
 export const postOrder = (data: {
     client: string,
-    table: number,
-    product: string,
+    table: string,
+    products: Product[],
 }, token: string) => {
     return fetch(`http://localhost:8080/orders`, {
         method: 'POST',
@@ -37,4 +39,15 @@ export const postOrder = (data: {
         },
         body: JSON.stringify(data),
     });
+};
+
+export const allOrders = (token:string) => {
+    return fetch('http://localhost:8080/orders', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Authorization': `Bearer ${token}`
+        },
+    })
 };

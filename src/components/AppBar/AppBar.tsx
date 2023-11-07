@@ -18,7 +18,7 @@ export default function AppBar() {
         <Container>
           <Navbar.Brand href="#/">
             <img
-              alt=""
+              alt="Logo"
               src="/src/assets/hamburguesa.png"
               width="50"
               height="50"

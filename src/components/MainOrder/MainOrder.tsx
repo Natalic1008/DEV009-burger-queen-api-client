@@ -37,7 +37,12 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, handleRemoveSel
   const [table, setTable]= useState("");
   const [status] = useState ("Pending");
 
-  function handleAddOrder(table) {
+  function handleAddOrder(table:string) {
+    if (token === null) {
+      // Manejo de error si token es nulo
+      throw new Error('Token is null. Cannot make the request.');
+    }
+    
     const data = {
       table: table,
       client: client,
