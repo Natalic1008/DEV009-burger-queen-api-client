@@ -13,69 +13,14 @@ import { postOrder } from "../../Services/Request";
 
 type MainOrderProps = {
   selectedProducts: Product[];
-<<<<<<< HEAD
-  setSelectedProducts: (products: Product[]) => void; 
-  onAddProduct?: (product: Product) => void;
-}
-
-const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, setSelectedProducts: onAddProduct }) => {
-  console.log(selectedProducts)
-  const [order, setOrder] = useState<Product[]>(selectedProducts);
-
-
-  useEffect(() => {
-    setOrder(selectedProducts);
-  }, [selectedProducts]);
-
-  const addProduct = (product: Product) => {
-    const index = order.findIndex((p) => p.id === product.id);
-    if (index === -1) {
-      setOrder([...order, { ...product, quantity: 1 }]);
-    } else {
-      const updatedOrder = [...order];
-      updatedOrder[index].quantity += 1;
-      setOrder(updatedOrder);
-    }
-
-    // Actualizar selectedProducts
-    // const updatedSelectedProducts = selectedProducts.map((p) =>
-    //   p.id === product.id ? { ...p, quantity: p.quantity + 1 } : p
-    // );
-    // setSelectedProducts(updatedSelectedProducts);
-
-    if (onAddProduct) {
-      onAddProduct(product)
-    }
-  };
-
-  const removeProduct = (product: Product) => {
-    const index = order.findIndex((p) => p.id === product.id);
-    if (index !== -1) {
-      const updatedOrder = [...order];
-      if (updatedOrder[index].quantity > 1) {
-        updatedOrder[index].quantity -= 1;
-      } else {
-        updatedOrder.splice(index, 1);
-      }
-      setOrder(updatedOrder);
-    }
-
-    // Actualizar selectedProducts
-    const updatedSelectedProducts = selectedProducts.map((p) =>
-      p.id === product.id ? { ...p, quantity: p.quantity - 1 } : p
-    );
-    setSelectedProducts(updatedSelectedProducts);
-  };
-=======
   handleRemoveSelectItems: (product: Product) => void;
   handleAddToSelectedItems:(product: Product) => void;
   handleDeleteSelectedItem:(product: Product) => void;
 };
->>>>>>> 4b4bc4da98ef1c07c8b093a389457212b0f58aa8
 
 const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, handleRemoveSelectItems, handleAddToSelectedItems,handleDeleteSelectedItem }) => {
   
-  const token = localStorage.getItem("token");
+ const token = localStorage.getItem("token");
   const handleClick = NavigateTo("/Waiter/orders");
   
   const calculateTotal = () => {
@@ -92,7 +37,7 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, handleRemoveSel
   const [table, setTable]= useState("");
   const [status] = useState ("Pending");
 
-  function handleAddOrder(table) {
+  function handleAddOrder(table:string) {
     const data = {
       table: table,
       client: client,
