@@ -51,3 +51,14 @@ export const allOrders = (token:string) => {
         },
     })
 };
+
+export const deleteOrder = (id:number, token:string) => {
+    return fetch(`http://localhost:8080/orders/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Authorization': `Bearer ${token}`
+        },
+    })
+}
