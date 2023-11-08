@@ -1,4 +1,3 @@
-import { number, string, func } from "prop-types";
 import { useState } from "react";
 import Modal from "../Modal/Modal";
 import { editProduct } from "../../Services/Request";
@@ -24,17 +23,17 @@ export default function EditProduct({
 }: EditProductProps) {
   const [editedName, setEditedName] = useState<string>(name);
   const [editedType, setEditedType] = useState<string>(type);
-  const [editedPrice, setEditedPrice] = useState<string>(price.toString());
+  const [editedPrice, setEditedPrice] = useState<number>(price); 
 
   function editProductById() {
     const updatedData = {
       id,
       type: editedType,
       name: editedName,
-      price: parseFloat(editedPrice),
+      price: editedPrice, 
     };
 
-    editProduct(id, updatedData, token)
+    editProduct(parseFloat(id), updatedData, token)
       .then((response) => {
         if (response.ok) {
           onClose();
@@ -45,6 +44,7 @@ export default function EditProduct({
         console.error("Error al realizar la solicitud de edición", error);
       });
   }
+
   return (
     <>
       <Modal
@@ -87,21 +87,12 @@ export default function EditProduct({
           <label>Price</label>
           <input
             value={editedPrice}
-            type="text"
+            type="number" // Cambiado a tipo number
             data-testid="price_edit_product"
-            onChange={(e) => setEditedPrice(e.target.value)}
+            onChange={(e) => setEditedPrice(parseFloat(e.target.value))} // Convierte a número
           />
         </div>
       </Modal>
     </>
   );
 }
-EditProduct.propTypes = {
-  id: string.isRequired,
-  type: string.isRequired,
-  name: string.isRequired,
-  price: number.isRequired,
-  onClose: func.isRequired,
-  token: string.isRequired,
-  onEditSuccess: func.isRequired,
-};

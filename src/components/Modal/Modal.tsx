@@ -1,7 +1,7 @@
 import React from "react";
-import { func, node, string } from "prop-types";
 
-interface ModalProps {
+
+type  ModalProps = {
   title: string;
   onClose: () => void;
   children: React.ReactNode;
@@ -9,13 +9,13 @@ interface ModalProps {
   nameAction: string;
 }
 
-export default function Modal({
+ const Modal: React.FC<ModalProps> =({
   title,
   onClose,
   children,
   action,
   nameAction,
-}: ModalProps) {
+}) => {
 
   return (
     <div >
@@ -64,10 +64,5 @@ export default function Modal({
   );
 }
 
-Modal.propTypes = {
-  onClose: func.isRequired,
-  title: string.isRequired,
-  children: node.isRequired,
-  action: func.isRequired,
-  nameAction: string.isRequired,
-};
+
+export default Modal

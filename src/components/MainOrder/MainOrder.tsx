@@ -20,7 +20,7 @@ type MainOrderProps = {
 
 const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, handleRemoveSelectItems, handleAddToSelectedItems,handleDeleteSelectedItem }) => {
   
- const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const handleClick = NavigateTo("/Waiter/orders");
   
   const calculateTotal = () => {
@@ -38,6 +38,11 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, handleRemoveSel
   const [status] = useState ("Pending");
 
   function handleAddOrder(table:string) {
+    if (token === null) {
+      // Manejo de error si token es nulo
+      throw new Error('Token is null. Cannot make the request.');
+    }
+    
     const data = {
       table: table,
       client: client,
@@ -48,7 +53,7 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, handleRemoveSel
     console.log (data);
 
    
-    postOrder(data, token)
+   postOrder(data, token)
       .then((response) => {
         if (response.ok) {
         return response.json();
