@@ -1,3 +1,5 @@
+import { Product } from "../pages/Waiter/OrdersList";
+
 export const auth = (email:string, password:string) => {
     return fetch('http://localhost:8080/login', {
         method: 'POST',
@@ -25,8 +27,8 @@ export const products =(token:string) => {
 
 export const postOrder = (data: {
     client: string,
-    table: number,
-    product: string,
+    table: string,
+    products: Product[],
 }, token: string) => {
     return fetch(`http://localhost:8080/orders`, {
         method: 'POST',
@@ -39,6 +41,7 @@ export const postOrder = (data: {
     });
 };
 
+
 export const addProduct = (data: { name: string, type: string, price: number, id: string }, token: string) => {
     return fetch(`http://localhost:8080/products`, {
         method: 'POST',
@@ -47,7 +50,7 @@ export const addProduct = (data: { name: string, type: string, price: number, id
             'Accept-Encoding': 'gzip, deflate, br',
             'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({
+          body: JSON.stringify({
             name: data.name,
             type: data.type,
             price: data.price,
@@ -56,8 +59,28 @@ export const addProduct = (data: { name: string, type: string, price: number, id
     });
 };
 
+export const allOrders = (token:string) => {
+    return fetch('http://localhost:8080/orders', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Authorization': `Bearer ${token}`
+        },
+      
+
 export const deleteProduct = (id: number, token: string) => {
     return fetch(`http://localhost:8080/products/${id}`, {
+       method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Authorization': `Bearer ${token}`
+    })
+};
+
+export const deleteOrder = (id:number, token:string) => {
+    return fetch(`http://localhost:8080/orders/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -78,3 +101,5 @@ export const editProduct = (id: number, updatedData: any, token: string) => {
         body: JSON.stringify(updatedData)
     });
 };
+
+
