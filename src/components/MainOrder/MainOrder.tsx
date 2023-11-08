@@ -53,7 +53,7 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, handleRemoveSel
     console.log (data);
 
    
-    postOrder(data, token)
+   postOrder(data, token)
       .then((response) => {
         if (response.ok) {
         return response.json();
