@@ -18,7 +18,7 @@ export default function CurrentDate() {
 
     return (
         <div>  
-            <h1>{dayOfWeek}</h1>
+            <h3>{dayOfWeek}</h3>
             <span>{formattedDate}</span>
         </div>
     );
