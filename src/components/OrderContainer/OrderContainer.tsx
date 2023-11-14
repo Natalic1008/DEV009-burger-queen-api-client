@@ -147,8 +147,8 @@ const OrderContainer: React.FC<OrderProps> = () => {
                     ) : null}
                     {showModalDelete && (
                       <DeleteOrder
-                        id={orderIdToDelete}
-                        token={token}
+                        id={orderIdToDelete||0}
+                        token={token||""}
                         onClose={handleCloseDelete}
                         onDelete={handleDelete}
                       />

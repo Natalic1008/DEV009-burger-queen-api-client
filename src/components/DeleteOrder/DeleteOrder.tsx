@@ -1,6 +1,15 @@
 import { deleteOrder } from "../../Services/Request";
+import Modal from "../Modal/Modal";
 
-export default function DeleteOrder({ id, token, onClose, onDelete }) {
+interface DeleteOrderProps {
+  id: number; 
+  token: string; 
+  onClose: () => void;
+  onDelete: (id: number) => void;
+}
+
+
+export default function DeleteOrder({ id, token, onClose, onDelete }:DeleteOrderProps) {
 
     function deleteOrderById() {
       deleteOrder(id, token)
