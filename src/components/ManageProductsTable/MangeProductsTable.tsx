@@ -82,10 +82,13 @@ export default function ManageProductsTable() {
   <>
      <div>
         <div >
-          <img src="/src/assets/hamburguesa.png" onClick={handleClick} alt="Return to dashboard" />
+          <img 
+            src="/src/assets/IconoReturn.png"
+            width="30"
+            height="30" onClick={handleClick} alt="Return to dashboard" />
           <h1>Manage Products</h1>
         </div>
-        <img src="/src/assets/hamburguesa.png" onClick={handleOpenModal}  alt="Add new product" />
+        <img src="/src/assets/hamburguesa.png" width="50" height="50" onClick={handleOpenModal}  alt="Add new product" />
         {showModalAdd && (
           <AddProduct
             onClose={handleCloseModal}

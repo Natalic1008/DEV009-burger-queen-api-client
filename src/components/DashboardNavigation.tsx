@@ -1,3 +1,4 @@
+import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 export default function DashboardNavigation() {
@@ -9,11 +10,21 @@ export default function DashboardNavigation() {
     {  title: "All Orders", path: "/admin/orders" },
   ];
 
+  const waiterButtons = [
+    { title: "New Order", path: "/waiter/new" },
+    { title: "All Orders", path: "/waiter/orders" },
+  ];
+  const chefButton = [
+  { title: "All Orders", path: "/chef/orders" },
+  ];
+
+
   const dashboardButtons =
-  userRole === "Admin" || userRole === "admin"
-    ? adminButtons
-    : [];
- 
+    userRole === "Admin" || userRole === "admin"
+      ? adminButtons
+      : userRole === "Chef" || userRole === "chef"
+        ? chefButton
+        : waiterButtons;
 
   const navigateTo = useNavigate();
 
@@ -24,9 +35,9 @@ export default function DashboardNavigation() {
   return (
     <section >
         {dashboardButtons.map((val, key) => (
-            <button  key={key} onClick={() => handleClick(val.path)}>
+            <Button  key={key} onClick={() => handleClick(val.path)}>
                 {val.title}
-            </button>
+            </Button>
         ))}
     </section>
 );

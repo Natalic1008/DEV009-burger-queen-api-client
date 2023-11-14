@@ -27,7 +27,7 @@ const OrderContainer: React.FC<OrderProps> = () => {
   const [orderIdToDelete, setOrderIdToDelete] = useState<number | null>(null);
   const [showModalDelete, setModalDelete] = useState(false)
 
-  const handleClick = NavigateTo("/adm/dasboard");
+  const handleClick = NavigateTo("/admin/dashboard");
 
   function getOrderContainer(token: string | null) {
     if (typeof token === 'string') {
@@ -63,7 +63,7 @@ const OrderContainer: React.FC<OrderProps> = () => {
   };
 
   const handleDelete = () => {
-    if (orderIdToDelete) {
+    if (orderIdToDelete !== null) {
       const updatedOrders = orders.filter(
         (order) => order.id !== orderIdToDelete
       );

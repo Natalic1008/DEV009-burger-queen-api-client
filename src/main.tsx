@@ -4,7 +4,7 @@ import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import OrderList from './pages/Waiter/OrdersList.tsx';
 import App from './App.tsx';
-import Login from './pages/Login/login.tsx';
+import Login from './pages/Login/Login.tsx';
 import OrderHistory from './pages/Waiter/OrderHistory.tsx';
 import Dashboard from './pages/Dashboard.tsx';
 import Products from './pages/Admin/Products.tsx';
