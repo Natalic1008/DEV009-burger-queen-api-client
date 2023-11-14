@@ -1,6 +1,15 @@
+import React from 'react';
 import { deleteOrder } from "../../Services/Request";
+import Modal from "../Modal/Modal";
 
-export default function DeleteOrder({ id, token, onClose, onDelete }) {
+type DeleteOrderProps = {
+    id: number;
+    token: string;
+    onClose: () => void;
+    onDelete: (id: number) => void;
+  };
+
+  const DeleteOrder: React.FC<DeleteOrderProps> = ({ id, token, onClose, onDelete }) => {
 
     function deleteOrderById() {
       deleteOrder(id, token)
@@ -27,3 +36,5 @@ export default function DeleteOrder({ id, token, onClose, onDelete }) {
       </>
     );
   }
+
+  export default DeleteOrder;
