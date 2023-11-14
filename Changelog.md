@@ -1,4 +1,57 @@
 # Changelog
+## 1.1.0 - 2023-11-07
+
+### Sprint learnings
+
+- Aprendimos a solicitar datos a la API.
+- Aprendimos a definir correctamente el uso de TypeScript.
+- Aprendimos a realizar la elevación de los estados .
+- Reforzamos conocimiento en el uso de hook useEffect y useState.
+
+### Added
+
+- Agregamos  estilo a la vista de nueva orden.
+- Realizamos test al componente AppBar.
+- Adicionamos al boton de cerrar sesión que fuera de redirigir a la pagina inicial, nos borrara los token.
+- Le dimos funcionalidad a los botones + , - y eliminar item de la tabla de pedidos; a su vez el boton de envió lleva toda la data del pedido y redirige a la siguiente vista
+- Ya podemos ver la tabla de todos los pedidos de acuerdo a lo requerido en la HU3.
+- Se definieron todas las ruta de navegación que se va usar en el proyecto
+- Terminamos las vistas pendientes en nuestro prototipo de alta fidelidad.
+- Se crea la página principal del administrador donde se puede visualizar fecha y los botones PRODUCT, USERS y su respectiva navegación.
+
+
+
+### Changed
+
+-Se refactorizo todo el codigo de Main Order y OrderList, debido a la duplidad al adicional un producto; al igual que la elevación de estados.
+
+### Fixed
+
+- Se resuelve la definiciones de tipos de los datos en la diferentes vista de acuerdo a TypeScript
+- Se resuelve el problema duplicidad de datos en la tabla de pedidos
+
+# Changelog
+## 1.0.2 - 2023-10-30
+
+### Sprint learnings
+
+- Aprendimos a usar el grid en CSS
+- Aprendimos a definir correctamente el uso de TypeScript
+- Aprendimos a pasar los estados como propiedades de otras funciones
+
+### Added
+
+- Agregamos  estilo al componente menú.
+- Agregamos el botón de cerrar sesión utilizando Bootstrap
+- Agregamos la funcion de selecionar el mismo producto y que no nos adicione otro item sino que lo sume al pedido.
+
+
+### Changed
+
+- La funcionalidad de tomar pedido se está refactorizando, teniendo en cuenta que no repita producto y que funcione los botones de  + y - 
+
+
+# Changelog
 ## 1.0.1 - 2023-10-24
 
 ### Sprint learnings

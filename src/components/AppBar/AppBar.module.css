@@ -1,6 +1,24 @@
-.tituloNav{
-    font-size: 30px;
-    font-weight: bold;
-    font-family:"qwigley";
-    color:#563938
- }
+.tituloNav {
+	font-size: 42px;
+	font-weight: bold;
+	font-family: "qwigley";
+	color: #563938;
+}
+
+.userRole {
+	margin-right: 15%;
+	color: #563938;
+	font-weight: bold;
+	width: 20%;
+	background-color: #eae8e6;
+	justify-content: center;
+	border-radius: 5%;
+	padding: 0.5%;
+	font-size: larger;
+}
+
+.iconSignOut svg {
+	scale: 2.3;
+	color: #563938;
+	font-weight: bold;
+}
