@@ -1,5 +1,4 @@
 import { deleteProduct } from "../../Services/Request";
-import { func, string } from "prop-types";
 import Modal from "../Modal/Modal";
 
 interface DeleteProductProps {
@@ -34,9 +33,3 @@ export default function DeleteProduct({ id, token, onClose,  onDelete }: DeleteP
     );
 }
 
-DeleteProduct.propTypes = {
-    id: string.isRequired,
-    token: string.isRequired,
-    onClose: func.isRequired,
-    onDelete: func.isRequired
-};

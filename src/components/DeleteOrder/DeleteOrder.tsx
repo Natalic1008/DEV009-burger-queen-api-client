@@ -2,6 +2,7 @@ import React from 'react';
 import { deleteOrder } from "../../Services/Request";
 import Modal from "../Modal/Modal";
 
+
 type DeleteOrderProps = {
     id: number;
     token: string;
