@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { string, func } from "prop-types";
 import { addProduct } from "../../Services/Request";
 import Modal from "../Modal/Modal"
 
@@ -15,6 +14,7 @@ export default function AddProduct({ onClose, token, onAdd }: AddProductProps) {
   const [addType, setAddType] = useState("");
   const [addPrice, setAddPrice] = useState("");
   const [error, setError] = useState("");
+  const [addImage, setAddImage] = useState("");
 
   function addNewProduct() {
     const priceAsNumber = parseFloat(addPrice);
@@ -27,8 +27,9 @@ export default function AddProduct({ onClose, token, onAdd }: AddProductProps) {
   const data = {
     id: addId,
     name: addName,
-    price: priceAsNumber,  // Convertir a número
+    price: priceAsNumber,  
     type: addType,
+    image: addImage,
   };
 
     addProduct(data, token)
@@ -90,7 +91,7 @@ export default function AddProduct({ onClose, token, onAdd }: AddProductProps) {
         >
           <option>--</option>
           <option value="Breakfast">Breakfast</option>
-          <option value="Lunch/Dinner">Lunch/Dinner</option>
+          <option value="Lunch">Lunch</option>
         </select>
       </div>
       <div>
@@ -102,12 +103,15 @@ export default function AddProduct({ onClose, token, onAdd }: AddProductProps) {
           onChange={(e) => setAddPrice(e.target.value)}
         />
       </div>
+      <div>
+        <label>Image</label>
+        <input
+          type="img"
+          value={addImage}
+          onChange={(e) => setAddImage(e.target.value)}
+        />
+      </div>
     </Modal>
   );
 }
 
-AddProduct.propTypes = {
-  onClose: func.isRequired,
-  token: string.isRequired,
-  onAdd: func.isRequired,
-};

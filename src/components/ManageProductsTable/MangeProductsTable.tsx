@@ -10,7 +10,7 @@ import EditProduct from "../EditProduct/EditProduct";
 export default function ManageProductsTable() {
   const [token] = useState<string | null>(localStorage.getItem("token") || "");
   const handleClick = NavigateTo("/admin/dashboard");
-  const [allProducts, setAllProducts] = useState<{ id: string; name: string; type: string; price: number; }[]>([]);
+  const [allProducts, setAllProducts] = useState<{ id: string; name: string; type: string; price: number; image:any; }[]>([]);
   const [showModalAdd, setShowModalAdd] = useState<boolean>(false);
   const [showModalDelete, setShowModalDelete] = useState<boolean>(false);
   const [showModals, setShowModals] = useState<{ [key: string]: boolean }>({});
@@ -80,15 +80,15 @@ export default function ManageProductsTable() {
 
   return(
   <>
-     <div>
-        <div >
+     <div className="d-flex align-items-center justify-content-between" style={{ width: '95%' }}>
+        <div className="d-flex align-items-center">
           <img 
             src="/src/assets/IconoReturn.png"
             width="30"
             height="30" onClick={handleClick} alt="Return to dashboard" />
-          <h1>Manage Products</h1>
+          <h2 className="ml-2">Manage Products</h2>
         </div>
-        <img src="/src/assets/hamburguesa.png" width="50" height="50" onClick={handleOpenModal}  alt="Add new product" />
+        <Button variant="success" onClick={handleOpenModal} > Añadir productos </Button>
         {showModalAdd && (
           <AddProduct
             onClose={handleCloseModal}
@@ -97,13 +97,14 @@ export default function ManageProductsTable() {
           />
         )}
       </div>
-      <Table striped bordered hover>
+      <Table striped bordered hover style={{ width: '95%' }}>
       <thead>
         <tr>
           <th>ID</th>
           <th>Type</th>
           <th>Name</th>
           <th>Price</th>
+          <th>Image</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -114,9 +115,10 @@ export default function ManageProductsTable() {
             <td>{product.type}</td>
             <td>{product.name}</td>
             <td>{product.price}</td>
+            <td><img src={product.image} height={30} /></td>
             <td>
               <Button
-                variant="primary"
+                variant="success"
                 onClick={() => handleOpenEdit(product.id)}
               >
                 Edit
@@ -140,6 +142,7 @@ export default function ManageProductsTable() {
             name={val.name}
             type={val.type}
             price={Number(val.price)}
+            image={val.image}
             token={token||""}
             onClose={() => handleCloseEdit(val.id)}
             onEditSuccess={updateProduct}
