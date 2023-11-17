@@ -14,35 +14,36 @@ import { postOrder } from "../../Services/Request";
 type MainOrderProps = {
   selectedProducts: Product[];
   handleRemoveSelectItems: (product: Product) => void;
-  handleAddToSelectedItems:(product: Product) => void;
-  handleDeleteSelectedItem:(product: Product) => void;
+  handleAddToSelectedItems: (product: Product) => void;
+  handleDeleteSelectedItem: (product: Product) => void;
 };
 
-const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, handleRemoveSelectItems, handleAddToSelectedItems,handleDeleteSelectedItem }) => {
-  
+const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, handleRemoveSelectItems, handleAddToSelectedItems, handleDeleteSelectedItem }) => {
+
   const token = localStorage.getItem("token");
   const handleClick = NavigateTo("/Waiter/orders");
-  
+
+
   const calculateTotal = () => {
     return selectedProducts.reduce(
       (total, product) => total + (product.price * product.quantity),
       0
-      );
+    );
   };
 
   const currentDateTime = new Date().toLocaleTimeString([], { hour12: false });
   const [dataEntry] = useState(currentDateTime);
 
   const [client, setClient] = useState("");
-  const [table, setTable]= useState("");
-  const [status] = useState ("Pending");
+  const [table, setTable] = useState("");
+  const [status] = useState("Pending");
 
-  function handleAddOrder(table:string) {
+  function handleAddOrder(table: string) {
     if (token === null) {
       // Manejo de error si token es nulo
       throw new Error('Token is null. Cannot make the request.');
     }
-    
+
     const data = {
       table: table,
       client: client,
@@ -50,13 +51,13 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, handleRemoveSel
       status: status,
       dataEntry: dataEntry,
     };
-    console.log (data);
+    console.log(data);
 
-   
-   postOrder(data, token)
+
+    postOrder(data, token)
       .then((response) => {
         if (response.ok) {
-        return response.json();
+          return response.json();
         }
       })
       .catch((error) => {
@@ -66,7 +67,7 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, handleRemoveSel
   return (
     <>
       <Container className={style.Container_order}>
-        <section>
+        <section className={style.section_order}>
           <Form>
             <Row>
               <Col>
@@ -83,8 +84,8 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, handleRemoveSel
           </Form>
         </section>
         <section>
-          <div>
-            <h2>ORDER</h2>
+          <div className={style.table}>
+            <h3>ORDER</h3>
             <Table striped size="sm">
               <thead>
                 <tr>
@@ -123,11 +124,17 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, handleRemoveSel
                 </td>
                 </tr>
               </tbody>
-              </Table>
-            <Button type="submit" size="sm" data-testid="send_order" 
-            onClick={() =>{handleAddOrder(table);handleClick()}}>
-              Send
-            </Button>
+            </Table>
+            <div className={style.Button}>
+              <Button type="submit" size="sm"
+                onClick={() => { handleAddOrder(table); handleClick() }}>
+                SEND
+              </Button>
+              <Button type="submit" size="sm"
+                onClick={() => { handleClick() }}>
+                ALL ORDERS
+              </Button>
+            </div>
           </div>
         </section>
       </Container>
