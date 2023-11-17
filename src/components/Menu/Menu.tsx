@@ -43,10 +43,10 @@ export default function Menu({ handleAddToSelectedItems }: MenuProps) {
       <div className={style.buttonMenu}>
         <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
           <ToggleButton id="tbg-radio-1" value={1} onClick={() => handleViewProducts("Breakfast")} variant="outline-warning" className={style.buttonBreakfast}>
-            Breakfast
+            <h3>Breakfast</h3>
           </ToggleButton>
           <ToggleButton id="tbg-radio-2" value={2} onClick={() => handleViewProducts("Lunch/Dinner")} variant="outline-warning">
-            Lunch/Dinner
+           <h3> Lunch/Dinner</h3>
           </ToggleButton>
         </ToggleButtonGroup>
       </div>
@@ -67,11 +67,11 @@ export default function Menu({ handleAddToSelectedItems }: MenuProps) {
                 variant="outline-warning"
                 >
                 <div className={style.cardsMenu}>
-                  <p>
+                  <div>
                     <img className={style.productsImage} src={product.image} height={35} alt={product.name} />
-                    <span className={style.nameProduct}>{product.name}</span>
+                    <span className={style.nameProduct}><h5>{product.name}</h5></span>
                     <span>${product.price}</span>
-                  </p>
+                  </div>
                 </div>
               </Button>
             </div>
