@@ -10,6 +10,7 @@ interface EditProductProps {
   onClose: () => void;
   token: string;
   onEditSuccess: (data: { id: string; name: string; type: string; price: number }) => void;
+  image: any;
 }
 
 export default function EditProduct({
@@ -20,10 +21,12 @@ export default function EditProduct({
   onClose,
   token,
   onEditSuccess,
+  image,
 }: EditProductProps) {
   const [editedName, setEditedName] = useState<string>(name);
   const [editedType, setEditedType] = useState<string>(type);
   const [editedPrice, setEditedPrice] = useState<number>(price); 
+  const [editedImage, setEditedImage] = useState(image); 
 
   function editProductById() {
     const updatedData = {
@@ -31,6 +34,7 @@ export default function EditProduct({
       type: editedType,
       name: editedName,
       price: editedPrice, 
+      image: editedImage,
     };
 
     editProduct(parseFloat(id), updatedData, token)
@@ -89,7 +93,15 @@ export default function EditProduct({
             value={editedPrice}
             type="number" // Cambiado a tipo number
             data-testid="price_edit_product"
-            onChange={(e) => setEditedPrice(parseFloat(e.target.value))} // Convierte a número
+            onChange={(e) => setEditedPrice(parseFloat(e.target.value))} 
+          />
+        </div>
+        <div>
+          <label>Image</label>
+          <input
+            value={editedImage}
+            type="img" 
+            onChange={(e) => setEditedImage(e.target.value)} 
           />
         </div>
       </Modal>

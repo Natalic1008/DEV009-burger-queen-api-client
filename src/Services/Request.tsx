@@ -41,8 +41,7 @@ export const postOrder = (data: {
   });
 };
 
-
-export const addProduct = (data: { name: string, type: string, price: number, id: string }, token: string) => {
+export const addProduct = (data: { name: string, type: string, price: number, id: string, image: any }, token: string) => {
   return fetch(`http://localhost:8080/products`, {
     method: 'POST',
     headers: {
@@ -55,6 +54,7 @@ export const addProduct = (data: { name: string, type: string, price: number, id
       type: data.type,
       price: data.price,
       id: data.id,
+      image: data.image,
     })
   });
 };
