@@ -104,4 +104,54 @@ export const editProduct = (id: number, updatedData: any, token: string) => {
   });
  };
 
+ export const addUsers = (data: { name: string, email: string, password: string, role:string, id: string}, token:string) => {
+  return fetch(`http://localhost:8080/users`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          password: data.password,
+          role: data.role,
+          id: data.id,
+      })
+  });
+};
 
+export const deleteUser = (id:string, token:string) => {
+  return fetch(`http://localhost:8080/users/${id}`, {
+      method: 'DELETE',
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Authorization': `Bearer ${token}`
+      },
+  })
+}
+
+export const editUser = (id:string, updatedData:object, token:string) => {
+  return fetch(`http://localhost:8080/users/${id}`, {
+      method: 'PATCH',
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(updatedData)
+  });
+};
+
+export const users = (token:string) => {
+  return fetch('http://localhost:8080/users', {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Authorization': `Bearer ${token}`
+      },
+  })
+}

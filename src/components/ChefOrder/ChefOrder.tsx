@@ -3,9 +3,19 @@ import { Table } from "react-bootstrap";
 import NavigateTo from "../Navigate/navigate";
 import { allOrders } from "../../Services/Request";
 
+type Product = {
+  quantity: number;
+  name: string;
+}
+
 type Order = {
   id: number;
   isPrepared: boolean;
+  table: string; // Agrega esta línea si 'table' es una propiedad de Order
+  products: Product[]; // Agrega esta línea si 'products' es una propiedad de Order
+  dataEntry: string; // Ajusta el tipo según el tipo de 'dataEntry'
+  status: string; // Agrega esta línea si 'status' es una propiedad de Order
+  dateProcessed?: string; // Agrega esta línea si 'dateProcessed' es una propiedad opcional de Order
 }
 
 export default function ChefOrders() {
