@@ -118,7 +118,7 @@ export default function ManageProductsTable() {
             <td><img src={product.image} height={30} /></td>
             <td>
               <Button
-                variant="success"
+                variant="primary"
                 onClick={() => handleOpenEdit(product.id)}
               >
                 Edit
