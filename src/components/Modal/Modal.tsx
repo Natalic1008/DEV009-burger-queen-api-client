@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "react-bootstrap";
+import style from "../Modal/Modal.module.css"
 
 
 
@@ -33,14 +34,13 @@ type  ModalProps = {
             ></button>
           </div>
           <div
-          className="modal-body"
-            /*className={
+              className={
               title === "New Product" || title === "Edit Product"
                 ? style.modal_product
                 : title === "Add User" || title === "Edit User"
                 ? style.modal_user
                 : "modal-body"
-            }*/
+            }
           >
             {children}
           </div>

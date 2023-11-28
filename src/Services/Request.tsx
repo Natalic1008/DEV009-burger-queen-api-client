@@ -155,3 +155,26 @@ export const users = (token:string) => {
       },
   })
 }
+
+export const userOrder = (id:string, token:string) => {
+  return fetch(`http://localhost:8080/orders/${id}`, {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Authorization': `Bearer ${token}`
+      }
+  })
+};
+
+export const patchOrder = (id:string, updatedData:any, token:string) => {
+  return fetch(`http://localhost:8080/orders/${id}`, {
+      method: 'PATCH',
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(updatedData)
+  });
+};
