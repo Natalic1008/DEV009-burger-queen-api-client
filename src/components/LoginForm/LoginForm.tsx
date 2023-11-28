@@ -34,7 +34,7 @@ const LoginForm = () => {
         if (user.role === 'admin' || user.role === 'Admin') {
           navigateTo("/admin/dashboard")
         } else if (user.role === 'waiter') {
-          navigateTo("/Waiter/new")
+          navigateTo("/Waiter/dashboard")
         } else {
           navigateTo("/chef/dashboard")
         }
@@ -72,7 +72,7 @@ const LoginForm = () => {
         </div>
         {error &&
           <div className={style.error_message} >
-            <span className={style.error}>{error}</span>
+            <span className={style.error} data-testid="error_login">{error} </span>
           </div>}
       </Form>
     </Container>

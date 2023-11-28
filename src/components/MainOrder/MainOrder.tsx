@@ -22,6 +22,7 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, handleRemoveSel
 
   const token = localStorage.getItem("token");
   const handleClick = NavigateTo("/Waiter/orders");
+  const handleReturn = NavigateTo("/Waiter/dashboard")
 
 
   const calculateTotal = () => {
@@ -51,8 +52,7 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, handleRemoveSel
       status: status,
       dataEntry: dataEntry,
     };
-    console.log(data);
-
+  
 
     postOrder(data, token)
       .then((response) => {
@@ -126,6 +126,14 @@ const MainOrder: React.FC<MainOrderProps> = ({ selectedProducts, handleRemoveSel
               </tbody>
             </Table>
             <div className={style.Button}>
+              <Button>
+                <img
+                  alt="Return"
+                  src="/src/assets/IconoReturn.png"
+                  width="30"
+                  height="30"
+                  onClick={handleReturn} />
+              </Button>
               <Button type="submit" size="sm"
                 onClick={() => { handleAddOrder(table); handleClick() }}>
                 SEND
