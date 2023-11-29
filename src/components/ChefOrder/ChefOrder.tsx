@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Button, Table } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
 import NavigateTo from "../Navigate/navigate";
-import { allOrders, patchOrder } from "../../Services/Request";
-
+import { allOrders } from "../../Services/Request";
+import Delivered from "../Delivered/Delivered";
+import { Table } from "react-bootstrap";
+import {UpdatableOrder} from "../Delivered/Delivered"
 type Product = {
   quantity: number;
   name: string;
@@ -11,43 +12,31 @@ type Product = {
 type Order = {
   id: number;
   isPrepared: boolean;
-  table: string; 
-  products: Product[]; 
-  dataEntry: string; 
-  status: string; 
-  dateProcessed?: string; 
+  table: string;
+  products: Product[];
+  dataEntry: string;
+  status: string;
+  dateProcessed?: string;
   duration?: string;
-}
+};
+
+type CheckedItems = { [orderId: number]: { [productIndex: number]: boolean } };
 
 export default function ChefOrders() {
-  const token = localStorage.getItem('token');
+  const token: string | null = localStorage.getItem('token');
   const [orders, setOrders] = useState<Order[]>([]);
   const [expandedOrder, setExpandedOrder] = useState<number | null>(null);
-  const [checkedItems, setCheckedItems] = useState<{ [key: number]: boolean }>({});
+  const [checkedItems, setCheckedItems] = useState<{ [key: number]: { [key: number]: boolean } }>({});
   const handleClick = NavigateTo('/chef/dashboard');
-
-  useEffect(() => {
-    const storedCheckedItemsString = localStorage.getItem('checkedItems');
-    const storedCheckedItems = storedCheckedItemsString
-      ? JSON.parse(storedCheckedItemsString)
-      : {};
-
-    setCheckedItems(storedCheckedItems);
-
-    if (token) {
-      getAllOrders(token);
-    }
-  }, [token]);
 
   function getAllOrders(token: string | null) {
     if (token) {
       allOrders(token)
         .then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw new Error('No orders available.');
+          if (!response.ok) {
+            throw new Error("No orders available.");
           }
+          return response.json();
         })
         .then((data) => {
           setOrders(data);
@@ -55,60 +44,64 @@ export default function ChefOrders() {
         .catch((error) => {
           console.log(error);
         });
-    } else {
-      console.error('No token found in local storage.');
     }
   }
 
-  function markAsPrepared(orderId: number) {
-    if (token) {
-      const updatedOrderData = {
-        status: 'Prepared',
-        dateProcessed: new Date().toISOString(),
-      };
+  useEffect(() => {
+    const storedCheckedItems = JSON.parse(localStorage.getItem("checkedItems")|| "{}") || {};
+    setCheckedItems(storedCheckedItems);
 
-      patchOrder(orderId.toString(), updatedOrderData, token)
-        .then((response) => {
-          if (response.ok) {
-            getAllOrders(token);
-          }
-          return response.json();
-        })
-        .catch((error) => {
-          console.error('Error marking order as prepared', error);
-        });
-    }
-  }
+    getAllOrders(token);
 
-  function toggleExpand(orderId: number) {
+  }, [token]);
+
+
+  function toggleExpand(orderId:number) {
     setExpandedOrder((prevExpandedOrder) =>
       prevExpandedOrder === orderId ? null : orderId
     );
   }
 
   function handleInfoClick(event: React.MouseEvent, orderId: number) {
-    if (event.target instanceof HTMLImageElement) {
+    if ((event.target as HTMLElement).tagName === "IMG") {
       toggleExpand(orderId);
     }
   }
 
+  const updatedOrderData = (updatedOrder: UpdatableOrder) => {
+    setOrders((orders) =>
+      orders.map((order) => {
+        if (order.id === updatedOrder.id) {
+          return {
+            ...order,
+            status: updatedOrder.status,
+            dateProcessed: updatedOrder.dateProcessed,
+            duration: updatedOrder.duration,
+          };
+        } else {
+          return order;
+        }
+      })
+    );
+  };
+
   function handleCheckboxChange(productIndex: number, orderId: number) {
-    setCheckedItems((prevCheckedItems) => {
+    setCheckedItems((prevCheckedItems: CheckedItems) => {
       const updatedOrder = prevCheckedItems[orderId] || {};
       const currentStatus = updatedOrder[productIndex] || false;
       const newStatus = !currentStatus;
   
-      const newCheckedItems = {
+      const newCheckedItems: CheckedItems = {
         ...prevCheckedItems,
         [orderId]: {
-          ...updatedOrder,
+          ...(prevCheckedItems[orderId] || {}),
           [productIndex]: newStatus,
         },
       };
   
-      localStorage.setItem('checkedItems', JSON.stringify(newCheckedItems));
+      localStorage.setItem("checkedItems", JSON.stringify(newCheckedItems));
   
-      return newCheckedItems as { [key: number]: { [key: number]: boolean } };
+      return newCheckedItems;
     });
   }
 
@@ -116,13 +109,13 @@ export default function ChefOrders() {
     <>
       <div>
         <div>
-        <img
+          <img
             src="/src/assets/IconoReturn.png"
-            alt="Refresh"
+            alt="Return"
             width="30"
             height="30"
-            onClick={handleClick}/>
-            <h1>Active Orders</h1>
+            onClick={handleClick} />
+          <h1>Active Orders</h1>
         </div>
         <div>
           <img
@@ -135,7 +128,7 @@ export default function ChefOrders() {
         </div>
       </div>
       <div>
-        <Table className="table">
+        <Table>
           <thead>
             <tr>
               <th></th>
@@ -148,18 +141,18 @@ export default function ChefOrders() {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order) => {
+            {orders.map((order, index) => {
               const isExpanded = expandedOrder === order.id;
 
               return (
-                <React.Fragment key={order.id}>
+                <React.Fragment key={index}>
                   <tr onClick={(event) => handleInfoClick(event, order.id)}>
                     <td>
-                      <img 
-                      src="/src/assets/Icono_desplegar"
-                      alt="Info"
-                      width="30"
-                      height="30"/>
+                      <img
+                        src="/src/assets/Icono_desplegar"
+                        alt="Info"
+                        width="30"
+                        height="30" />
                     </td>
                     <td>{order.table}</td>
                     <td>{order.dataEntry}</td>
@@ -168,19 +161,17 @@ export default function ChefOrders() {
                     <td>{order.duration}</td>
                     <td>
                       {order.status === 'Pending' && (
-                        <Button
-                          variant="success"
-                          onClick={() => markAsPrepared(order.id)}
-                        >
-                          Mark Prepared
-                        </Button>
+                        <Delivered
+                        order={order}
+                        onEditSuccess={updatedOrderData}
+                        />
                       )}
                     </td>
                   </tr>
                   {isExpanded && (
                     <tr
                       key={`expanded_${order.id}`}
-                                          >
+                    >
                       <td colSpan={7}>
                         <ul>
                           {order.products.map((product, productIndex) => (

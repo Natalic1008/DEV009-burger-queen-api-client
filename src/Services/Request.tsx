@@ -167,7 +167,7 @@ export const userOrder = (id:string, token:string) => {
   })
 };
 
-export const patchOrder = (id:string, updatedData:any, token:string) => {
+export const patchOrder = (id:number, updatedData:any, token:string) => {
   return fetch(`http://localhost:8080/orders/${id}`, {
       method: 'PATCH',
       headers: {
