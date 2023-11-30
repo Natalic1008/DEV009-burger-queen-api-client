@@ -4,7 +4,7 @@ import NavigateTo from "../Navigate/navigate";
 
 type CheckOutProps = {
   onClose: () => void;
-  id: string; 
+  id: number; 
 };
 
 

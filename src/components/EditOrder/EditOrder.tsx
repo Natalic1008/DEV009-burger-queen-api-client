@@ -4,13 +4,15 @@ import NavigateTo from "../Navigate/navigate";
 import { patchOrder, userOrder } from "../../Services/Request";
 import Menu from "../Menu/Menu";
 import { Product } from "..//../pages/Waiter/OrdersList";
+import UpdateOrder from "../UpdateOrder"
+import Alert from "../Alert/Alert";
 
 type OrderInfo = {
   client: string;
 };
 
 type Item = {
-  id: string;
+  id: number;
   qty?: number;
 };
 
@@ -19,6 +21,7 @@ export default function EditOrder() {
   const [selectedItems, setSelectedItems] = useState<(Product | (Item & { quantity: number }))[]>([]);
   const [orderInfo, setOrderInfo] = useState<OrderInfo>({ client: "" });
   const { orderId } = useParams();
+  const orderIdNumber = orderId ? parseInt(orderId, 10) : null;
   const currentDateTime = new Date().toLocaleTimeString([], { hour12: false });
   const [dataEntry] = useState(currentDateTime);
 
@@ -38,7 +41,7 @@ export default function EditOrder() {
 
   useEffect(() => {
     if (orderId && token) {
-      userOrder(orderId, token)
+      userOrder(orderIdNumber||0, token)
         .then((response) => {
           if (!response.ok) {
             throw new Error("No existe productos");
@@ -98,7 +101,7 @@ export default function EditOrder() {
         status: "Pending",
       };
 
-      patchOrder(orderId, updatedOrderData, token)
+      patchOrder(orderIdNumber||0, updatedOrderData, token)
         .then((response) => {
           if (response.ok) {
             handleSuccessAlert();
@@ -132,11 +135,13 @@ export default function EditOrder() {
           <span>All Orders</span>
         </div>
       </section>
+      <UpdateOrder
       selectedItems={selectedItems}
       handleAddToSelectedItems={handleAddToSelectedItems}
       handleRemoveSelectedItems={handleRemoveSelectedItems}
       handleEditOrder={handleEditOrder}
       orderInfo={orderInfo}
+      />
       {showSuccess && (
         <Alert
           type="success"
@@ -145,6 +150,7 @@ export default function EditOrder() {
           onClose={handleCloseSuccessAlert}
         />
       )}
+      
     </main>
   );
 }
