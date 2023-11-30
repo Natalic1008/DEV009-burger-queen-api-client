@@ -12,6 +12,7 @@ export type Product = {
   image: string,
   quantity: number,
   token: string,
+  qty?: any;
 };
 export default function OrderList() {
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);

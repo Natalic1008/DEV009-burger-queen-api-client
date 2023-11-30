@@ -41,7 +41,7 @@ export const postOrder = (data: {
   });
 };
 
-export const addProduct = (data: { name: string, type: string, price: number, id: string, image: any }, token: string) => {
+export const addProduct = (data: { name: string, type: string, price: number, id: number, image: any }, token: string) => {
   return fetch(`http://localhost:8080/products`, {
     method: 'POST',
     headers: {
@@ -104,7 +104,7 @@ export const editProduct = (id: number, updatedData: any, token: string) => {
   });
  };
 
- export const addUsers = (data: { name: string, email: string, password: string, role:string, id: string}, token:string) => {
+ export const addUsers = (data: { name: string, email: string, password: string, role:string, id: number}, token:string) => {
   return fetch(`http://localhost:8080/users`, {
       method: 'POST',
       headers: {
@@ -122,7 +122,7 @@ export const editProduct = (id: number, updatedData: any, token: string) => {
   });
 };
 
-export const deleteUser = (id:string, token:string) => {
+export const deleteUser = (id:number, token:string) => {
   return fetch(`http://localhost:8080/users/${id}`, {
       method: 'DELETE',
       headers: {
@@ -133,7 +133,7 @@ export const deleteUser = (id:string, token:string) => {
   })
 }
 
-export const editUser = (id:string, updatedData:object, token:string) => {
+export const editUser = (id:number, updatedData:object, token:string) => {
   return fetch(`http://localhost:8080/users/${id}`, {
       method: 'PATCH',
       headers: {
@@ -156,7 +156,7 @@ export const users = (token:string) => {
   })
 }
 
-export const userOrder = (id:string, token:string) => {
+export const userOrder = (id:number, token:string) => {
   return fetch(`http://localhost:8080/orders/${id}`, {
       method: 'GET',
       headers: {
