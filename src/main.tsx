@@ -56,7 +56,7 @@ const router = createBrowserRouter([
         path:"orders",
         element:<OrderHistory/>
       }
-    ]
+      ]
   },
   {
     path: "/chef",

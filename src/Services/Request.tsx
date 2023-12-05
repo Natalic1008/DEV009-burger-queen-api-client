@@ -41,8 +41,7 @@ export const postOrder = (data: {
   });
 };
 
-
-export const addProduct = (data: { name: string, type: string, price: number, id: string }, token: string) => {
+export const addProduct = (data: { name: string, type: string, price: number, id: string, image: any }, token: string) => {
   return fetch(`http://localhost:8080/products`, {
     method: 'POST',
     headers: {
@@ -55,6 +54,7 @@ export const addProduct = (data: { name: string, type: string, price: number, id
       type: data.type,
       price: data.price,
       id: data.id,
+      image: data.image,
     })
   });
 };
@@ -104,4 +104,77 @@ export const editProduct = (id: number, updatedData: any, token: string) => {
   });
  };
 
+ export const addUsers = (data: { name: string, email: string, password: string, role:string, id: string}, token:string) => {
+  return fetch(`http://localhost:8080/users`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          password: data.password,
+          role: data.role,
+          id: data.id,
+      })
+  });
+};
 
+export const deleteUser = (id:string, token:string) => {
+  return fetch(`http://localhost:8080/users/${id}`, {
+      method: 'DELETE',
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Authorization': `Bearer ${token}`
+      },
+  })
+}
+
+export const editUser = (id:string, updatedData:object, token:string) => {
+  return fetch(`http://localhost:8080/users/${id}`, {
+      method: 'PATCH',
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(updatedData)
+  });
+};
+
+export const users = (token:string) => {
+  return fetch('http://localhost:8080/users', {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Authorization': `Bearer ${token}`
+      },
+  })
+}
+
+export const userOrder = (id:string, token:string) => {
+  return fetch(`http://localhost:8080/orders/${id}`, {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Authorization': `Bearer ${token}`
+      }
+  })
+};
+
+export const patchOrder = (id:number, updatedData:any, token:string) => {
+  return fetch(`http://localhost:8080/orders/${id}`, {
+      method: 'PATCH',
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(updatedData)
+  });
+};

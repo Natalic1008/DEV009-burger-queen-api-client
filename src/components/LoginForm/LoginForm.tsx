@@ -6,6 +6,7 @@ import style from "./LoginForm.module.css";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import _default from "react-bootstrap/Form";
+import { Container } from "react-bootstrap";
 
 
 const LoginForm = () => {
@@ -33,7 +34,7 @@ const LoginForm = () => {
         if (user.role === 'admin' || user.role === 'Admin') {
           navigateTo("/admin/dashboard")
         } else if (user.role === 'waiter') {
-          navigateTo("/Waiter/new")
+          navigateTo("/Waiter/dashboard")
         } else {
           navigateTo("/chef/dashboard")
         }
@@ -44,36 +45,39 @@ const LoginForm = () => {
 
   }
   return (<>
-    <Form className={style.section} data-testid="form_login" >
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email</Form.Label>
-        <Form.Control
-          type="email"
-          placeholder="Email"
-          value={email}
-          data-testid="email_login"
-          onChange={(e) => setEmail(e.target.value)} />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control
-          type="password"
-          placeholder="Password"
-          value={password}
-          data-testid="password_login"
-          onChange={(e) => setPassword(e.target.value)} />
-      </Form.Group>
-      <div className="d-grid gap-2">
-        <Button className="btn btn-success" type="submit" size="sm" onClick={userAuth} data-testid="submit_login">
-          LOG IN
-        </Button>
-      </div>
-      {error &&
-        <div className={style.error_message} >
-          <span className={style.error}>{error}</span>
-        </div>}
-    </Form>
-  </>)
+    <Container className="Principal">
+      <Form className={style.section} data-testid="form_login" >
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Email"
+            value={email}
+            data-testid="email_login"
+            onChange={(e) => setEmail(e.target.value)} />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            value={password}
+            data-testid="password_login"
+            onChange={(e) => setPassword(e.target.value)} />
+        </Form.Group>
+        <div className="d-grid gap-2">
+          <Button className="btn btn-success" type="submit" size="sm" onClick={userAuth} data-testid="submit_login">
+            LOG IN
+          </Button>
+        </div>
+        {error &&
+          <div className={style.error_message} >
+            <span className={style.error} data-testid="error_login">{error} </span>
+          </div>}
+      </Form>
+    </Container>
+  </>
+  )
 }
 
 export default LoginForm;

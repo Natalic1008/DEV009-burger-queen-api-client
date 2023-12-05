@@ -1,4 +1,7 @@
 import React from "react";
+import { Button } from "react-bootstrap";
+import style from "../Modal/Modal.module.css"
+
 
 
 type  ModalProps = {
@@ -18,11 +21,11 @@ type  ModalProps = {
 }) => {
 
   return (
-    <div >
-      <div >
-        <div >
-          <div >
-            <h5 >{title}</h5>
+    <div className="modal fade show" style={{ display: 'block' }} >
+      <div className="modal-dialog ">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">{title}</h5>
             <button
               type="button"
               data-bs-dismiss="modal"
@@ -31,32 +34,34 @@ type  ModalProps = {
             ></button>
           </div>
           <div
-            /*className={
+              className={
               title === "New Product" || title === "Edit Product"
                 ? style.modal_product
                 : title === "Add User" || title === "Edit User"
                 ? style.modal_user
                 : "modal-body"
-            }*/
+            }
           >
             {children}
           </div>
 
-          <div>
-            <button
+          <div className="modal-footer">
+            <Button
+              variant="secondary"
               type="button"
               data-bs-dismiss="modal"
               onClick={onClose}
             >
               Cancel
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="primary"
               type="button"
               data-testid="btn_modal"
               onClick={action}
             >
               {nameAction}
-            </button>
+            </Button>
           </div>
         </div>
       </div>

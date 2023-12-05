@@ -99,67 +99,67 @@ const OrderContainer: React.FC<OrderProps> = () => {
             onClick={() => getOrderContainer(token)}
           />
         </div>
-    </div>
-        <div>
-          <Table className={style.table_responsive}>
-            <thead>
-              <tr>
-                <th> TABLE</th>
-                <th> CLIENT</th>
-                <th>PRODUCTS</th>
-                <th>SHIPPONG TIME</th>
-                <th>STATUS</th>
-                <th>DELIVERED TIME</th>
-                <th></th>
+      </div>
+      <div>
+        <Table className={style.table_responsive}>
+          <thead>
+            <tr>
+              <th> TABLE</th>
+              <th> CLIENT</th>
+              <th>PRODUCTS</th>
+              <th>SHIPPONG TIME</th>
+              <th>STATUS</th>
+              <th>DELIVERED TIME</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order) => (
+              <tr key={order.id}>
+                <td>{order.table}</td>
+                <td>{order.client}</td>
+                <td>
+                  <ul>
+                    {order.products.map((product, productIndex) => (
+                      <li key={productIndex}>
+                        {product.quantity}x {product.name}
+                      </li>
+                    ))}
+                  </ul>
+                </td>
+                <td> {order.dataEntry} </td>
+                <td>{order.status}</td>
+                <td> {order.dateProcessed || "--"}</td>
+                <td>
+                  {order.status !== "Closed" ? (
+                    <Link
+                      to={`/waiter/editOrder/${order.id}`}
+                    >
+                      Update
+                    </Link>
+                  ) : null}
+                  {role === "Admin" || role === "admin" ? (
+                    <button
+                      onClick={() => handleOpenDelete(order.id)}
+                    >
+                      Delete
+                    </button>
+                  ) : null}
+                  {showModalDelete && (
+                    <DeleteOrder
+                      id={orderIdToDelete || 0}
+                      token={token || ""}
+                      onClose={handleCloseDelete}
+                      onDelete={handleDelete}
+                    />
+                  )}
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {orders.map((order) => (
-                <tr key={order.id}>
-                  <td>{order.table}</td>
-                  <td>{order.client}</td>
-                  <td>
-                    <ul>
-                      {order.products.map((product, productIndex) => (
-                        <li key={productIndex}>
-                          {product.quantity}x {product.name}
-                        </li>
-                      ))}
-                    </ul>
-                  </td>
-                  <td> {order.dataEntry} </td>
-                  <td>{order.status}</td>
-                  <td> {order.dateProcessed || "--"}</td>
-                  <td>
-                    {order.status !== "Closed" ? (
-                      <Link
-                        to={`/waiter/editOrder/${order.id}`}
-                      >
-                        Update
-                      </Link>
-                    ) : null}
-                    {role === "Admin" || role === "admin" ? (
-                      <button
-                        onClick={() => handleOpenDelete(order.id)}
-                      >
-                        Delete
-                      </button>
-                    ) : null}
-                    {showModalDelete && (
-                      <DeleteOrder
-                        id={orderIdToDelete||0}
-                        token={token||""}
-                        onClose={handleCloseDelete}
-                        onDelete={handleDelete}
-                      />
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </div>
-      
+            ))}
+          </tbody>
+        </Table>
+      </div>
+
     </>
   );
 };
