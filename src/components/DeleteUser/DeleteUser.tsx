@@ -21,7 +21,7 @@ export default function DeleteUser({ id, token, onClose, onDelete }: DeleteUserP
         console.error(response.status);
       }
     });
-
+  }
   
   return (
     <>
