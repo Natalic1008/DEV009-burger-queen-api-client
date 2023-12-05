@@ -21,7 +21,7 @@ export default function AddUser({ onClose, token, onAdd }: AddUserProps) {
     password: addPassword,
     name: addName,
     role: addRole,
-    id: addId,
+    id: parseInt(addId, 10),
   };
 
   function handleAddNewUser() {

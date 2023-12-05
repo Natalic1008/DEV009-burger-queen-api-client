@@ -11,7 +11,7 @@ interface DeleteUserProps {
 export default function DeleteUser({ id, token, onClose, onDelete }: DeleteUserProps) {
 
   function deleteUserById() {
-    deleteUser(id, token)
+    deleteUser(parseInt(id, 10), token)
     .then((response) => {
       if (response.ok) {
         onClose();

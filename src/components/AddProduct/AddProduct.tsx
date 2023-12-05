@@ -25,7 +25,7 @@ export default function AddProduct({ onClose, token, onAdd }: AddProductProps) {
   }
 
   const data = {
-    id: addId,
+    id: parseInt(addId, 10),
     name: addName,
     price: priceAsNumber,  
     type: addType,

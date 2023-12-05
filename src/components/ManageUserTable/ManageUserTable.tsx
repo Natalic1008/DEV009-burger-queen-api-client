@@ -7,7 +7,7 @@ import EditUser from "../EditUser/EditUser";
 import { Button, Table } from "react-bootstrap";
 
 interface User {
-    id: string;
+    id: number;
     name: string;
     email: string;
     role: string;
@@ -52,8 +52,8 @@ export default function ManageUsersTable() {
     setShowModalAdd(false);
   };
 
-  const handleOpenDelete = (id:string) => {
-    setUserIdToDelete(id);
+  const handleOpenDelete = (id:number) => {
+    setUserIdToDelete(String(id));
     setShowModalDelete(true);
   };
 
@@ -66,11 +66,11 @@ export default function ManageUsersTable() {
     getAllUsers(token);
   };
 
-  const handleOpenEdit = (userId:string) => {
+  const handleOpenEdit = (userId:number) => {
     setShowModals((prevModals) => ({ ...prevModals, [userId]: true }));
   };
 
-  const handleCloseEdit = (userId:string) => {
+  const handleCloseEdit = (userId:number) => {
     setShowModals((prevModals) => ({ ...prevModals, [userId]: false }));
   };
 
