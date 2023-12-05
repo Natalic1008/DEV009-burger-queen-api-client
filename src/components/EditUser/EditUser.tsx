@@ -6,7 +6,7 @@ interface EditUserProps {
     name: string;
     email: string;
     role: string;
-    id: string; 
+    id: number; 
     token: string;
     onEdit: (newData: any) => void; 
     onClose: () => void;

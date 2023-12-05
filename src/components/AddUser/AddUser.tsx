@@ -16,7 +16,14 @@ export default function AddUser({ onClose, token, onAdd }: AddUserProps) {
   const [addRole, setAddRole] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-  
+  const data = {
+    email: addEmail,
+    password: addPassword,
+    name: addName,
+    role: addRole,
+    id: parseInt(addId, 10),
+  };
+
   function handleAddNewUser() {
     const idAsNumber = parseInt(addId, 10);
   

@@ -11,23 +11,17 @@ interface DeleteUserProps {
 export default function DeleteUser({ id, token, onClose, onDelete }: DeleteUserProps) {
 
   function deleteUserById() {
-    const idAsNumber = parseInt(id, 10);
-  
-    if (isNaN(idAsNumber)) {
-      console.error("Invalid user ID");
-      return;
-    }
-  
-    deleteUser(idAsNumber, token)
-      .then((response) => {
-        if (response.ok) {
-          onClose();
-          onDelete(id);
-        } else {
-          console.error(response.status);
-        }
-      });
-  }
+
+    deleteUser(parseInt(id, 10), token)
+    .then((response) => {
+      if (response.ok) {
+        onClose();
+        onDelete(id);
+      } else {
+        console.error(response.status);
+      }
+    });
+
   
   return (
     <>
