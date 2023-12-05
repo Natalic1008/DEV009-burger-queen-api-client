@@ -50,14 +50,15 @@ export default function UpdateOrder({
   const calculateTotal = () => {
     const selectedItemsTotal = selectedItems.reduce(
       (total, item) => {
-        if (isProduct(item)) {
-          return total + parseFloat(String(item.price)) * (item.qty || 1);
+        
+        if ('price' in item) {
+          return total + parseFloat(String(item.price)) * (item.quantity || 1);
         }
+        
         return total;
       },
       0
     );
-  
 
     const orderInfoTotal =
       orderInfo &&
@@ -103,26 +104,34 @@ export default function UpdateOrder({
         </select>
       </div>
       <div >
-      {orderInfo && orderInfo.products && orderInfo.products.length === 0 ? (
+        {orderInfo && orderInfo.length === 0 ? (
           <div >Loading</div>
-        ) : (          
+        ) : (
           orderInfo &&
           Array.isArray(orderInfo.products) &&
           orderInfo.products.map((item: Product, index: number) => (
             <div key={index} >
               <div>
-              {isProduct(item) && (
-                <>
-                {item.name}
-                <br />${(item as Product).price}
-                </>
-              )}
 
+                {('name' in item && 'price' in item) && (
+                  <>
+                    {item.name}
+                    <br />${item.price}
+                  </>
+                )}
               </div>
               <div>
-                <button onClick={() => handleAddToSelectedItems(item)}>+</button>
-                <span >{isProduct(item) ? item.qty : ''}</span>
-                <button onClick={() => handleRemoveSelectedItems(item)}>-</button>
+                <button
+                  onClick={() => handleAddToSelectedItems(item)}
+                >
+                  +
+                </button>
+                <span >{item.qty}</span>
+                <button
+                  onClick={() => handleRemoveSelectedItems(item)}
+                >
+                  -
+                </button>
               </div>
             </div>
           ))
@@ -135,22 +144,27 @@ export default function UpdateOrder({
           selectedItems.map((item, index) => (
             <div key={index}>
               <div>
-              {isProduct(item) ? (
+                {('name' in item && 'price' in item) && (
                   <>
-                {item.name}
-                <br />${item.price}
-                </>
-                ) : (
-                  <>
-                    Item {item.id}
+                    {item.name}
+                    <br />${item.price}
                   </>
-                  )}                
-
+                )}
               </div>
               <div >
-                <button onClick={() => handleAddToSelectedItems(item as Product)}>+</button>
-                <span >{isProduct(item) ? item.qty : ''}</span>
-                <button onClick={() => handleRemoveSelectedItems(item as Product)}>-</button>
+                <button
+
+                  onClick={() => handleAddToSelectedItems(item)}
+                >
+                  +
+                </button>
+                <span ></span>
+                <button
+
+                  onClick={() => handleRemoveSelectedItems(item)}
+                >
+                  -
+                </button>
               </div>
             </div>
           ))
@@ -174,7 +188,4 @@ export default function UpdateOrder({
       </div>
     </section>
   );
-}
-function isProduct(item: Item | Product): item is Product {
-  return (item as Product).type !== undefined;
 }
