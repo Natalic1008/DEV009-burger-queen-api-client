@@ -34,7 +34,14 @@ export default function EditUser({
   };
 
   function editUserById() {
-    editUser(id, data, token)
+    const idAsNumber = parseInt(id, 10);
+  
+    if (isNaN(idAsNumber)) {
+      console.error("Invalid user ID");
+      return;
+    }
+  
+    editUser(idAsNumber, data, token)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -49,7 +56,7 @@ export default function EditUser({
         console.error("Error al realizar la solicitud de edición", error);
       });
   }
-
+  
   return (
     <>
       <Modal
