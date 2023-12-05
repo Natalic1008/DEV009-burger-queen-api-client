@@ -2,9 +2,10 @@ import { useState } from "react";
 import { useEffect } from "react";
 import CheckOut from "../components/CheckOut/CheckOut";
 
+
 type Item = {
   id: number;
-  qty?: number;
+  quantity?: number;
 };
 
 type Product = {
@@ -20,8 +21,8 @@ type Product = {
 
 interface UpdateOrderProps {
   selectedItems: (Product | Item)[];
-  handleAddToSelectedItems: (item: Product) => void;
-  handleRemoveSelectedItems: (item: Product) => void;
+  handleAddToSelectedItems: (item: Product | Item) => void;
+  handleRemoveSelectedItems: (item: Product | Item) => void;
   handleEditOrder: (updatedOrderInfo: any) => void; 
   orderInfo: any; 
 }
@@ -48,7 +49,14 @@ export default function UpdateOrder({
 
   const calculateTotal = () => {
     const selectedItemsTotal = selectedItems.reduce(
-      (total, item) => total + parseFloat(String(item.price)) * (item.qty||1),
+      (total, item) => {
+        
+        if ('price' in item) {
+          return total + parseFloat(String(item.price)) * (item.quantity || 1);
+        }
+        
+        return total;
+      },
       0
     );
 
@@ -56,7 +64,7 @@ export default function UpdateOrder({
       orderInfo &&
       Array.isArray(orderInfo.products) &&
       orderInfo.products.reduce(
-        (total:number, item:Product) => total + parseFloat(String(item.price)) * item.qty,
+        (total:number, item:Product) => total + parseFloat(String(item.price)) * item.quantity,
         0
       );
 
@@ -89,7 +97,7 @@ export default function UpdateOrder({
       <div >
         <h1>Order</h1>
         <select
-         value={tableNumber}
+          value={tableNumber}
           onChange={(e) => setTableNumber(e.target.value)}
         >
           {options}
@@ -101,11 +109,16 @@ export default function UpdateOrder({
         ) : (
           orderInfo &&
           Array.isArray(orderInfo.products) &&
-          orderInfo.products.map((item:Product, index:number) => (
+          orderInfo.products.map((item: Product, index: number) => (
             <div key={index} >
               <div>
-                {item.name}
-                <br />${item.price}
+
+                {('name' in item && 'price' in item) && (
+                  <>
+                    {item.name}
+                    <br />${item.price}
+                  </>
+                )}
               </div>
               <div>
                 <button
@@ -131,8 +144,12 @@ export default function UpdateOrder({
           selectedItems.map((item, index) => (
             <div key={index}>
               <div>
-                {item.name}
-                <br />${item.price}
+                {('name' in item && 'price' in item) && (
+                  <>
+                    {item.name}
+                    <br />${item.price}
+                  </>
+                )}
               </div>
               <div >
                 <button

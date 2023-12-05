@@ -17,21 +17,28 @@ export default function AddProduct({ onClose, token, onAdd }: AddProductProps) {
   const [addImage, setAddImage] = useState("");
 
   function addNewProduct() {
+    const idAsNumber = parseInt(addId, 10);
+  
+    if (isNaN(idAsNumber)) {
+      setError("ID must be a number");
+      return;
+    }
+  
     const priceAsNumber = parseFloat(addPrice);
-
-  if (isNaN(priceAsNumber)) {
-    setError("Price must be a number");
-    return;
-  }
-
-  const data = {
-    id: addId,
-    name: addName,
-    price: priceAsNumber,  
-    type: addType,
-    image: addImage,
-  };
-
+  
+    if (isNaN(priceAsNumber)) {
+      setError("Price must be a number");
+      return;
+    }
+  
+    const data = {
+      id: idAsNumber, // Convertir 'id' a número
+      name: addName,
+      price: priceAsNumber,
+      type: addType,
+      image: addImage,
+    };
+  
     addProduct(data, token)
       .then((response) => {
         if (response.status === 500) {

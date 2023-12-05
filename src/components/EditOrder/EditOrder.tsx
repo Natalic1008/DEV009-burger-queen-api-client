@@ -13,7 +13,7 @@ type OrderInfo = {
 
 type Item = {
   id: number;
-  qty?: number;
+  quantity?: number;
 };
 
 export default function EditOrder() {
@@ -57,7 +57,7 @@ export default function EditOrder() {
     }
   }, [orderId, token]);
 
-  const handleAddToSelectedItems = (item: Product | (Item & { quantity: number })) => {
+  const handleAddToSelectedItems = (item: Product | Item) => {
     const existingItem = selectedItems.find(
       (selectedItem) => selectedItem.id === item.id
     );
@@ -75,7 +75,7 @@ export default function EditOrder() {
     }
   };
 
-  const handleRemoveSelectedItems = (item: Product | (Item & { quantity: number })) => {
+  const handleRemoveSelectedItems = (item: Product | Item ) => {
     const itemIndex = selectedItems.findIndex(
       (selectedItem) => Number(selectedItem.id) === item.id
     );
@@ -101,7 +101,7 @@ export default function EditOrder() {
         status: "Pending",
       };
 
-      patchOrder(orderIdNumber||0, updatedOrderData, token)
+      patchOrder(orderIdNumber ||0, updatedOrderData, token)
         .then((response) => {
           if (response.ok) {
             handleSuccessAlert();
