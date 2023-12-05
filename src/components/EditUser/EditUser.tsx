@@ -34,18 +34,19 @@ export default function EditUser({
   };
 
   function editUserById() {
-    const idAsNumber = parseInt(id, 10);
+    /*const idAsNumber = parseInt(id, 10);
   
     if (isNaN(idAsNumber)) {
       console.error("Invalid user ID");
       return;
-    }
+    }*/
   
-    editUser(idAsNumber, data, token)
+    editUser(id, data, token)
       .then((response) => {
-        if (response.ok) {
-          return response.json();
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
+        return response.json();
       })
       .then((newData) => {
         onClose();

@@ -32,13 +32,6 @@ export default function AddUser({ onClose, token, onAdd }: AddUserProps) {
       return;
     }
   
-    const data = {
-      email: addEmail,
-      password: addPassword,
-      name: addName,
-      role: addRole,
-      id: idAsNumber, 
-    };
   
     addUsers(data, token)
       .then((response) => {
