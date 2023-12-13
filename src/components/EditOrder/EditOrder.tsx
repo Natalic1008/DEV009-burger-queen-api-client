@@ -4,8 +4,10 @@ import NavigateTo from "../Navigate/navigate";
 import { patchOrder, userOrder } from "../../Services/Request";
 import Menu from "../Menu/Menu";
 import { Product } from "..//../pages/Waiter/OrdersList";
-import UpdateOrder from "../UpdateOrder"
+import UpdateOrder from "../UpdateOrder/UpdateOrder"
 import Alert from "../Alert/Alert";
+import style from "../EditOrder/EditOrder.module.css";
+
 
 type OrderInfo = {
   client: string;
@@ -118,20 +120,21 @@ export default function EditOrder() {
   }
 
   return (
-    <main>
-      <section>
-        <div>
+    <main className={style.new_order}>
+      <section className={style.menu}>
+        <div className={style.container_client}>
           <img
             alt="Return"
             src="/src/assets/IconoReturn.png"
+            className={style.return_button}
             width="30"
             height="30"
             onClick={handleReturn}
           />
-          <span>{orderInfo && orderInfo.client}</span>
+          <span className={style.client}> {orderInfo && orderInfo.client}</span>
         </div>
         <Menu handleAddToSelectedItems={handleAddToSelectedItems} />
-        <div onClick={handleClick}>
+        <div className={style.see_all_orders} onClick={handleClick}>
           <span>All Orders</span>
         </div>
       </section>
@@ -150,7 +153,6 @@ export default function EditOrder() {
           onClose={handleCloseSuccessAlert}
         />
       )}
-      
-    </main>
+   </main>
   );
 }

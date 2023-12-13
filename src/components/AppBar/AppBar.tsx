@@ -14,6 +14,7 @@ export default function AppBar() {
 
   return (
     <>
+    <div className='container'>
       <Navbar className="bg-body-tertiary">
         <Container>
           <Navbar.Brand href="#/">
@@ -44,6 +45,7 @@ export default function AppBar() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+    </div>
     </>
   )
 }
