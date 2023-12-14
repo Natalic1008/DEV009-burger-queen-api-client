@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import CheckOut from "../components/CheckOut/CheckOut";
-
+import CheckOut from "../CheckOut/CheckOut";
+import style from "./UpdateOrder.module.css";
+import { Button } from "react-bootstrap";
 
 type Item = {
   id: number;
@@ -102,7 +103,7 @@ export default function UpdateOrder({
           {options}
         </select>
       </div>
-      <div >
+      <div className={style.items} >
       {orderInfo && orderInfo.products && orderInfo.products.length === 0 ? (
           <div >Loading</div>
         ) : (          
@@ -119,10 +120,10 @@ export default function UpdateOrder({
               )}
 
               </div>
-              <div>
-                <button onClick={() => handleAddToSelectedItems(item)}>+</button>
-                <span >{isProduct(item) ? item.qty : ''}</span>
-                <button onClick={() => handleRemoveSelectedItems(item)}>-</button>
+              <div className={style.container}>
+                <Button  className={style.add_item} onClick={() => handleAddToSelectedItems(item)}>+</Button>
+                <span className={style.qty}>{isProduct(item) ? item.quantity : ''}</span>
+                <Button className={style.reduce_item} onClick={() => handleRemoveSelectedItems(item)}>-</Button>
               </div>
             </div>
           ))
@@ -147,10 +148,10 @@ export default function UpdateOrder({
                   )}                
 
               </div>
-              <div >
-                <button onClick={() => handleAddToSelectedItems(item as Product)}>+</button>
-                <span >{isProduct(item) ? item.qty : ''}</span>
-                <button onClick={() => handleRemoveSelectedItems(item as Product)}>-</button>
+              <div className={style.container}>
+                <Button className={style.add_item} onClick={() => handleAddToSelectedItems(item as Product)}>+</Button>
+                <span className={style.qty}>{isProduct(item) ? item.quantity : ''}</span>
+                <Button className={style.reduce_item} onClick={() => handleRemoveSelectedItems(item as Product)}>-</Button>
               </div>
             </div>
           ))
