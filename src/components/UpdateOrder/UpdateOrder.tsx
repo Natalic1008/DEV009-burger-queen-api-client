@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import CheckOut from "../CheckOut/CheckOut";
-import style from "./UpdateOrder.module.css";
-import { Button } from "react-bootstrap";
+import CheckOut from "../components/CheckOut/CheckOut";
+
 
 type Item = {
   id: number;
@@ -93,8 +92,8 @@ export default function UpdateOrder({
   
 
   return (
-    <section className={style.order}>
-      <div className={style.header}>
+    <section>
+      <div >
         <h1>Order</h1>
         <select
           value={tableNumber}
@@ -103,14 +102,14 @@ export default function UpdateOrder({
           {options}
         </select>
       </div>
-      <div className={style.items} >
+      <div >
       {orderInfo && orderInfo.products && orderInfo.products.length === 0 ? (
-          <div className={style.emptyBasket}>Loading</div>
+          <div >Loading</div>
         ) : (          
           orderInfo &&
           Array.isArray(orderInfo.products) &&
           orderInfo.products.map((item: Product, index: number) => (
-            <div key={index} className={style.item} >
+            <div key={index} >
               <div>
               {isProduct(item) && (
                 <>
@@ -120,21 +119,21 @@ export default function UpdateOrder({
               )}
 
               </div>
-              <div className={style.container}>
-                <Button  className={style.add_item} onClick={() => handleAddToSelectedItems(item)}>+</Button>
-                <span className={style.qty}>{isProduct(item) ? item.quantity : ''}</span>
-                <Button className={style.reduce_item} onClick={() => handleRemoveSelectedItems(item)}>-</Button>
+              <div>
+                <button onClick={() => handleAddToSelectedItems(item)}>+</button>
+                <span >{isProduct(item) ? item.qty : ''}</span>
+                <button onClick={() => handleRemoveSelectedItems(item)}>-</button>
               </div>
             </div>
           ))
         )}
       </div>
-      <div  className={style.items}>
+      <div >
         {selectedItems.length === 0 && !orderInfo ? (
-          <div className={style.emptyBasket} >No items selected</div>
+          <div >No items selected</div>
         ) : (
           selectedItems.map((item, index) => (
-            <div key={index} className={style.item}>
+            <div key={index}>
               <div>
               {isProduct(item) ? (
                   <>
@@ -148,24 +147,24 @@ export default function UpdateOrder({
                   )}                
 
               </div>
-              <div className={style.container}>
-                <Button className={style.add_item} onClick={() => handleAddToSelectedItems(item as Product)}>+</Button>
-                <span className={style.qty}>{isProduct(item) ? item.quantity : ''}</span>
-                <Button className={style.reduce_item} onClick={() => handleRemoveSelectedItems(item as Product)}>-</Button>
+              <div >
+                <button onClick={() => handleAddToSelectedItems(item as Product)}>+</button>
+                <span >{isProduct(item) ? item.qty : ''}</span>
+                <button onClick={() => handleRemoveSelectedItems(item as Product)}>-</button>
               </div>
             </div>
           ))
         )}
       </div>
-      <div className={style.buttons} >
-        <div className={style.price}>
+      <div >
+        <div >
           <span>Total</span>
-          <span className={style.total}>${calculateTotal()}</span>
+          <span >${calculateTotal()}</span>
         </div>
-        <Button  className={style.button_send} onClick={handleButtonClick}>
+        <button onClick={handleButtonClick}>
           {orderInfo ? "Update Order" : "Send"}
-        </Button>
-        <Button className={style.button} onClick={handleOpenModal}>Check Out</Button>
+        </button>
+        <button onClick={handleOpenModal}>Check Out</button>
         {showModal && (
           <CheckOut
             onClose={handleCloseModal}
