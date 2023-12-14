@@ -71,8 +71,10 @@ export default function AllOrders() {
             </Link>
           ) : null}
           <img
-            src="/src/assets/IconoReturn.png"
+            src="/src/assets/IconoRefresh.png"
             alt="Refresh"
+            width="30"
+            height="30"
             onClick={() => getAllOrders(token||"")}
           />
         </div>
@@ -81,33 +83,32 @@ export default function AllOrders() {
         <Table>
           <thead>
             <tr>
-              <th>Table</th>
-              <th>Client</th>
-              <th>Products</th>
-              <th>Received</th>
-              <th>Status</th>
-              <th>Delivered</th>
+              <th>TABLE</th>
+              <th>CLIENT</th>
+              <th>PRODUCTS</th>
+              <th>SHIPPONG TIME</th>
+              <th>STATUS</th>
+              <th>DELIVERED TIME</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             {orders.map((order) => (
               <tr key={order.id}>
+                <td>{order.table}</td>
+                <td>{order.client}</td>
                 <td>
                   <ul>
                     {order.products.map((product:any, productIndex:any) => (
                       <li key={productIndex}>
-                        {product.qty}x {product.name}
+                        {product.quantity}x {product.name}
                       </li>
                     ))}
                   </ul>
                 </td>
-                <td>
-                  {order.dataEntry}
-                </td>                
-                <td>
-                  {order.dateProcessed || "--"}
-                </td>
+                <td>{order.dataEntry}</td>
+                <td>{order.status}</td>                
+                <td>{order.dateProcessed || "--"}</td>
                 <td>
                   {order.status !== "Closed" ? (
                     <Link

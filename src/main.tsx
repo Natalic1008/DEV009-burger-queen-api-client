@@ -11,12 +11,13 @@ import Products from './pages/Admin/Products.tsx';
 import Users from './pages/Admin/Users.tsx';
 import AllOrders from './pages/Admin/AllOrders.tsx';
 import ActiveOrders from './pages/Cheff/ActiveOrders.tsx';
+import EditOrder from './components/EditOrder/EditOrder.tsx';
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element:<Login/>,
+    element: <Login />,
   },
   {
     path: "/admin",
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/waiter",
-    element: <App/>,
+    element: <App />,
     children: [
       {
         path: "dashboard",
@@ -53,10 +54,14 @@ const router = createBrowserRouter([
         element: <OrderList />,
       },
       {
-        path:"orders",
-        element:<OrderHistory/>
-      }
-      ]
+        path: "orders",
+        element: <OrderHistory />
+      },
+      {
+        path: "/waiter/editOrder/:orderId",
+        element: <EditOrder />,
+      },
+    ],
   },
   {
     path: "/chef",
@@ -68,7 +73,7 @@ const router = createBrowserRouter([
       },
       {
         path: "orders",
-        element: <ActiveOrders/>,
+        element: <ActiveOrders />,
       }
     ],
   },

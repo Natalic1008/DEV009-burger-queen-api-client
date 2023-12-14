@@ -17,7 +17,15 @@ export default function AddProduct({ onClose, token, onAdd }: AddProductProps) {
   const [addImage, setAddImage] = useState("");
 
   function addNewProduct() {
+    const idAsNumber = parseInt(addId, 10);
+  
+    if (isNaN(idAsNumber)) {
+      setError("ID must be a number");
+      return;
+    }
+  
     const priceAsNumber = parseFloat(addPrice);
+
 
   if (isNaN(priceAsNumber)) {
     setError("Price must be a number");
@@ -25,7 +33,7 @@ export default function AddProduct({ onClose, token, onAdd }: AddProductProps) {
   }
 
   const data = {
-    id: addId,
+    id: parseInt(addId, 10),
     name: addName,
     price: priceAsNumber,  
     type: addType,

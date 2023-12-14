@@ -21,10 +21,18 @@ export default function AddUser({ onClose, token, onAdd }: AddUserProps) {
     password: addPassword,
     name: addName,
     role: addRole,
-    id: addId,
+    id: parseInt(addId, 10),
   };
 
   function handleAddNewUser() {
+    const idAsNumber = parseInt(addId, 10);
+  
+    if (isNaN(idAsNumber)) {
+      setError("ID must be a number");
+      return;
+    }
+  
+  
     addUsers(data, token)
       .then((response) => {
         if (response.status === 500) {
@@ -32,10 +40,9 @@ export default function AddUser({ onClose, token, onAdd }: AddUserProps) {
         } else if (response.status === 400) {
           setError("This email is already in use, or it's invalid.");
         } else {
-          return response.json()
-          .then((newUserData) => {
-              onAdd(newUserData.user);
-              onClose();
+          return response.json().then((newUserData) => {
+            onAdd(newUserData.user);
+            onClose();
           });
         }
       })
@@ -43,7 +50,6 @@ export default function AddUser({ onClose, token, onAdd }: AddUserProps) {
         setError("An error occurred while adding the user.");
       });
   }
-
   return (
     <Modal
       onClose={onClose}

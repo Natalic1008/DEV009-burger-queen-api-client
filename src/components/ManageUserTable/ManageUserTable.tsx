@@ -7,11 +7,11 @@ import EditUser from "../EditUser/EditUser";
 import { Button, Table } from "react-bootstrap";
 
 interface User {
-    id: string;
-    name: string;
-    email: string;
-    role: string;
-  }
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+}
 
 
 export default function ManageUsersTable() {
@@ -26,17 +26,17 @@ export default function ManageUsersTable() {
   const [userIdToDelete, setUserIdToDelete] = useState<string | null>(null);
 
   function getAllUsers(token: string | null) {
-    users(token||"")
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-    })
-    .then((data) => {
-      console.log(data);
-      setAllUsers(data);
-      return data;
-    });
+    users(token || "")
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        setAllUsers(data);
+        return data;
+      });
   }
 
   useEffect(() => {
@@ -52,8 +52,8 @@ export default function ManageUsersTable() {
     setShowModalAdd(false);
   };
 
-  const handleOpenDelete = (id:string) => {
-    setUserIdToDelete(id);
+  const handleOpenDelete = (id: number) => {
+    setUserIdToDelete(String(id));
     setShowModalDelete(true);
   };
 
@@ -66,11 +66,11 @@ export default function ManageUsersTable() {
     getAllUsers(token);
   };
 
-  const handleOpenEdit = (userId:string) => {
+  const handleOpenEdit = (userId: number) => {
     setShowModals((prevModals) => ({ ...prevModals, [userId]: true }));
   };
 
-  const handleCloseEdit = (userId:string) => {
+  const handleCloseEdit = (userId: number) => {
     setShowModals((prevModals) => ({ ...prevModals, [userId]: false }));
   };
 
@@ -85,50 +85,54 @@ export default function ManageUsersTable() {
 
   return (
     <>
-      <div className="d-flex align-items-center justify-content-between" style={{ width: '95%' }}>
-        <div className="d-flex align-items-center">
-          <img src="/src/assets/IconoReturn.png"  width="30"
-            height="30" onClick={handleClick}  alt="Return" />
-          <h2 className="ml-2">Manage Users</h2>
+      <div className="container">
+        <div className="d-flex align-items-center justify-content-between">
+          <div className="d-flex align-items-center">
+            <img src="/src/assets/IconoReturn.png" width="30"
+              height="30" onClick={handleClick} alt="Return" />
+            <h2 className="ml-2">Manage Users</h2>
+          </div>
+          <Button variant="success" onClick={handleOpenModal}> Añadir Usuarios </Button>
+          {showModalAdd && (
+            <AddUser
+              onClose={handleCloseModal}
+              token={token || ""}
+              onAdd={handleAddNewUser}
+            />
+          )}
         </div>
-        <Button variant="success" onClick={handleOpenModal}> Añadir Usuarios </Button>
-        {showModalAdd && (
-          <AddUser
-            onClose={handleCloseModal}
-            token={token||""}
-            onAdd={handleAddNewUser}
-          />
-        )}
       </div>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {allUsers.map((val) => (
-            <tr key={val.id}>
-              <td>{val.id}</td>
-              <td>{val.name}</td>
-              <td>{val.email}</td>
-              <td>{val.role}</td>
-              <td>
-                <Button variant="success" onClick={() => handleOpenEdit(val.id)}>
-                  Edit
-                </Button>{" "}
-                <Button variant="danger" onClick={() => handleOpenDelete(val.id)}>
-                  Delete
-                </Button>
-              </td>
+      <div className="container">
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {allUsers.map((val) => (
+              <tr key={val.id}>
+                <td>{val.id}</td>
+                <td>{val.name}</td>
+                <td>{val.email}</td>
+                <td>{val.role}</td>
+                <td>
+                  <Button variant="success" onClick={() => handleOpenEdit(val.id)}>
+                    Edit
+                  </Button>{" "}
+                  <Button variant="danger" onClick={() => handleOpenDelete(val.id)}>
+                    Delete
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
 
       {allUsers.map((val) => (
         <div key={val.id}>
@@ -138,7 +142,7 @@ export default function ManageUsersTable() {
               name={val.name}
               email={val.email}
               role={val.role}
-              token={token||""}
+              token={token || ""}
               onClose={() => handleCloseEdit(val.id)}
               onEdit={handleUpdateUser}
             />
@@ -148,8 +152,8 @@ export default function ManageUsersTable() {
 
       {showModalDelete && (
         <DeleteUser
-          id={userIdToDelete||""}
-          token={token||""}
+          id={userIdToDelete || ""}
+          token={token || ""}
           onClose={handleCloseDelete}
           onDelete={handleDeleteUser}
         />

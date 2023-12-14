@@ -6,7 +6,7 @@ interface EditUserProps {
     name: string;
     email: string;
     role: string;
-    id: string; 
+    id: number; 
     token: string;
     onEdit: (newData: any) => void; 
     onClose: () => void;
@@ -34,11 +34,19 @@ export default function EditUser({
   };
 
   function editUserById() {
+    /*const idAsNumber = parseInt(id, 10);
+  
+    if (isNaN(idAsNumber)) {
+      console.error("Invalid user ID");
+      return;
+    }*/
+  
     editUser(id, data, token)
       .then((response) => {
-        if (response.ok) {
-          return response.json();
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
+        return response.json();
       })
       .then((newData) => {
         onClose();
@@ -49,7 +57,7 @@ export default function EditUser({
         console.error("Error al realizar la solicitud de edición", error);
       });
   }
-
+  
   return (
     <>
       <Modal

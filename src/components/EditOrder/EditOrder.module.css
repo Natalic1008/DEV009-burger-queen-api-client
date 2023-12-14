@@ -1,0 +1,46 @@
+.new_order {
+    display: flex;
+    width: 100vw;
+    margin-top: 12vh;
+  }
+  
+  .menu {
+    width: 50vw;
+    height: 75vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .component {
+    width: 40vw;
+  }
+  
+  .container_client {
+    width: 40vw;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .client {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #f37b0a;
+  }
+  
+  .see_all_orders {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 8vh;
+    color: #f37b0a;
+  }
+  
+  .see_all_orders span {
+    margin-left: 10px;
+  }
+  
+  .return_button {
+    margin-right: 5px;
+  }
+  
