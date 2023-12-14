@@ -93,8 +93,9 @@ export default function UpdateOrder({
   
 
   return (
-    <section>
-      <div >
+
+    <section className={style.order}>
+      <div className={style.header}>
         <h1>Order</h1>
         <select
           value={tableNumber}
@@ -105,12 +106,12 @@ export default function UpdateOrder({
       </div>
       <div className={style.items} >
       {orderInfo && orderInfo.products && orderInfo.products.length === 0 ? (
-          <div >Loading</div>
+          <div className={style.emptyBasket}>Loading</div>
         ) : (          
           orderInfo &&
           Array.isArray(orderInfo.products) &&
           orderInfo.products.map((item: Product, index: number) => (
-            <div key={index} >
+            <div key={index} className={style.item} >
               <div>
               {isProduct(item) && (
                 <>
@@ -129,12 +130,12 @@ export default function UpdateOrder({
           ))
         )}
       </div>
-      <div >
+      <div  className={style.items}>
         {selectedItems.length === 0 && !orderInfo ? (
-          <div >No items selected</div>
+          <div className={style.emptyBasket} >No items selected</div>
         ) : (
           selectedItems.map((item, index) => (
-            <div key={index}>
+            <div key={index} className={style.item}>
               <div>
               {isProduct(item) ? (
                   <>
@@ -157,15 +158,15 @@ export default function UpdateOrder({
           ))
         )}
       </div>
-      <div >
-        <div >
+      <div className={style.buttons} >
+        <div className={style.price}>
           <span>Total</span>
-          <span >${calculateTotal()}</span>
+          <span className={style.total}>${calculateTotal()}</span>
         </div>
-        <button onClick={handleButtonClick}>
+        <Button  className={style.button_send} onClick={handleButtonClick}>
           {orderInfo ? "Update Order" : "Send"}
-        </button>
-        <button onClick={handleOpenModal}>Check Out</button>
+        </Button>
+        <Button className={style.button} onClick={handleOpenModal}>Check Out</Button>
         {showModal && (
           <CheckOut
             onClose={handleCloseModal}
